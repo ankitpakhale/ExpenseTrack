@@ -11,13 +11,22 @@
     <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href=" {% static 'css/expense.css' %} " rel="stylesheet" />
-    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'style1.css' %}">
+    <!-- <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    
 </head>
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand text-danger ps-3" href=" {% static 'expense.html' %} "><i class="fas fa-coins fa-2x"></i> Expense</a>
+        <a class="navbar-brand text-danger ps-3" href=" {% url 'EXPENSE' %} "><i class="fas fa-coins fa-2x"></i> Expense</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href=" {% static '#!' %} "><i
                 class="fas fa-bars"></i></button>
@@ -59,7 +68,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href=" {% static 'index.html' %} ">
+                        <a class="nav-link" href=" {% url 'INDEX' %} ">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
@@ -87,8 +96,9 @@
                     </ol>
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
-                            <a href=" {% static '#addExpenseModal' %} "><button type="button" id="addbtn" class="btn btn-danger">Add to
+                            <a href='#addExpenseModal' data-toggle="modal"><button type="button" id="addbtn" class="btn btn-danger">Add to
                                 Expenses</button></a>
+                            <!-- <a href="#addExpenseModal" id="addbtn" class="btn btn-danger" data-toggle="modal"><span>Add your Expense</span></a> -->
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <button type="button" id="searchbtn" data-target="#filter" class="btn btn-danger">Search
@@ -161,6 +171,12 @@
     <script src=" {% static 'assets/demo/chart-bar-demo.js' %} "></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src=" {% static 'js/datatables-simple-demo.js' %} "></script>
-</body>
 
+
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+</body>
 </html>
