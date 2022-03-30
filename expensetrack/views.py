@@ -50,20 +50,21 @@ def delete(request, id):
 
 
 # ----------------------------------------------------------------
-def signup1(request):
-    return render(request, 'signup.html')
-    
-def login1(request):
-    return render(request, 'login.html')
+
+def index(request):
+    if 'email' in request.session:
+        expenses = Expense.objects.all()
+        if request.POST:
+            month = request.POST['month']
+            year = request.POST['year']
+            expenses = Expense.objects.filter(date__year=year, date__month=month) 
+        return render(request, 'index.html', {'expenses': expenses})
+    return redirect('LOGIN')
+
     
 def about(request):
     if 'email' in request.session:
         return render(request, 'about.html')
-    return redirect('LOGIN')
-
-def index(request):
-    if 'email' in request.session:
-        return render(request, 'index.html')
     return redirect('LOGIN')
 
 def expense(request):
@@ -72,12 +73,14 @@ def expense(request):
     return redirect('LOGIN')
 
 def contact(request):
-    key = ''
-    if request.method == 'POST':
-        db = ContactForm(name = request.POST.get('name') ,email = request.POST.get('email'), details = request.POST.get('details'))
-        db.save()
-        key = "Your Message has been sent successfully"
-    return render(request, 'contactus.html', {'msg': key})
+    if 'email' in request.session:  
+        key = ''
+        if request.method == 'POST':
+            db = ContactForm(name = request.POST.get('name') ,email = request.POST.get('email'), details = request.POST.get('details'))
+            db.save()
+            key = "Your Message has been sent successfully"
+        return render(request, 'contactus.html', {'msg': key})
+    return redirect('LOGIN')
 
 
 def signup(self):

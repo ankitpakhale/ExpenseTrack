@@ -13,23 +13,15 @@
     <link rel="stylesheet" href="{% static 'style1.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
 </head>
 <body>
 <div class="container">
     </br>
     <div class="row">
-        <div style="display: flex;">
-            <button data-toggle="modal" data-target="" type="button" class="btn btn-primary"
-            style="font-size: 20px; margin: auto; display: block">
-            <a href="{% url 'INDEX' %}" style="text-decoration: none; color: #fff;">Go To Home</a>
-        </button>
-        
-        <button data-toggle="modal" data-target="#filter" type="button" class="btn btn-primary"
-                style="font-size: 20px; margin: auto; display: block">Search Data
-        </button>
-
+        <div>
+            <button data-toggle="modal" data-target="#filter" type="button" class="btn btn-primary"
+                    style="font-size: 20px; margin: auto; display: block">Search Data
+            </button>
         </div>
     </div>
     <div class="theme-switch-wrapper" style="visibility: hidden">
@@ -40,6 +32,8 @@
     </div>
     <script src="{% static 'darkmode.js' %}"></script>
     </br>
+
+    
     <div class="table-wrapper">
         <div class="table-title">
             <div class="row">
@@ -228,6 +222,7 @@
         </table>
     </div>
 </div>
+
 <!-- Add Modal HTML -->
 <div id="addExpenseModal" class="modal fade">
     <div class="modal-dialog">
