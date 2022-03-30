@@ -1,0 +1,49 @@
+body{
+    margin: 0;
+}
+*{
+    box-sizing: border-box;
+}
+a{
+    display: inline-block;
+}
+#font{
+	font-family: 'Anton',sans-serif;
+}
+.sc{
+	width: 100%;
+	height: 695px;
+	background:url("/images/monthly4.jpg");
+	background-size: cover;
+}
+.overlay{
+	top:0;
+	left:0;
+	width:100%;
+	height: 100%;
+	background:rgba(0,0,0,0.4);  
+}
+#btn{
+	display: block;
+	max-width: 300px;
+	margin:auto;
+	margin-top: 20px;
+}
+.display-1{
+	margin-top: 10%;
+}
+#footer{
+	background-color: #2F363F;
+}
+hr{
+	height: 1px;
+	width: 20%;
+	background-color: red;
+	margin: auto;
+}
+.main-menu li:hover a{ 
+	color:#dc3545 !important;
+}
+ #card{
+	background-color: #01CBC6;
+}

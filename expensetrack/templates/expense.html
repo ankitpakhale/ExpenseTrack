@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href=" {% static 'css/expense.css' %} " rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand text-danger ps-3" href=" {% static 'expense.html' %} "><i class="fas fa-coins fa-2x"></i> Expense</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href=" {% static '#!' %} "><i
+                class="fas fa-bars"></i></button>
+        <!-- Navbar -->
+        <li class="navbar-nav ms-auto me-md-3 me-3 me-lg-1">
+            <a class="nav-link text-white" href="#">Home</a>
+        </li>
+        <li class="navbar-nav ms-auto ms-md-0 me-3 me-lg-1">
+            <a class="nav-link text-white" href=" {% static '#About' %} ">About us</a>
+        </li>
+        <li class="navbar-nav ms-auto ms-md-0 me-3 me-lg-1">
+            <a class="nav-link text-white" href=" {% static 'contactus.html' %} ">Contact us</a>
+        </li>
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href=" {% static '#!' %} ">Settings</a></li>
+                    <li><a class="dropdown-item" href=" {% static '#!' %} ">Activity Log</a></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href=" {% static '#!' %} ">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Side Nav -->
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <a class="nav-link" href=" {% static 'index.html' %} ">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Addons</div>
+                        <a class="nav-link" href=" {% static 'charts.html' %} ">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Charts
+                        </a>
+                        <a class="nav-link" href=" {% static 'tables.html' %} ">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Tables
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main content  -->
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Financial Expenses</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                            <a href=" {% static '#addExpenseModal' %} "><button type="button" id="addbtn" class="btn btn-danger">Add to
+                                Expenses</button></a>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <button type="button" id="searchbtn" data-target="#filter" class="btn btn-danger">Search
+                                Data</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <div id="addExpenseModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="post" action="./add">
+                            
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Expense</h4>
+                                <button type="button" class="btn-close close" data-dismiss="modal" aria-hidden="true">&times;
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Item</label>
+                                    <input class="form-control" type="text" name="item" placeholder="Enter the item" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Amount</label>
+                                    <input class="form-control" type="text" name="amount" placeholder="Enter the amount" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select class="form-control" name="category" required>
+                                        <option value="" selected disabled hidden>Choose the category</option>
+                                        <option value="food" name="category">Food</option>
+                                        <option value="clothes" name="category">Clothes</option>
+                                        <option value="travel" name="category">Travel</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Date</label>
+                                    <input type="date" class="form-control" name="date">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                <input type="submit" class="btn btn-danger" value="Add Expense">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- footer -->
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; expense.com 2022</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src=" {% static 'js/expense.js' %} "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src=" {% static 'assets/demo/chart-area-demo.js' %} "></script>
+    <script src=" {% static 'assets/demo/chart-bar-demo.js' %} "></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src=" {% static 'js/datatables-simple-demo.js' %} "></script>
+</body>
+
+</html>
