@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,14 +23,19 @@
                 class="fas fa-bars"></i></button>
         <!-- Navbar -->
         <li class="navbar-nav ms-auto me-md-3 me-3 me-lg-1">
-            <a class="nav-link text-white" href="#">Home</a>
+            <a class="nav-link text-white" href=" {% url 'INDEX' %} ">Home</a>
         </li>
         <li class="navbar-nav ms-auto ms-md-0 me-3 me-lg-1">
-            <a class="nav-link text-white" href=" {% static '#About' %} ">About us</a>
+            <a class="nav-link text-white" href=" {% url 'ABOUT' %} ">About us</a>
         </li>
         <li class="navbar-nav ms-auto ms-md-0 me-3 me-lg-1">
-            <a class="nav-link text-white" href=" {% static 'contactus.html' %} ">Contact us</a>
+            <a class="nav-link text-white" href=" {% url 'CONTACT' %} ">Contact us</a>
         </li>
+       
+        <li class="navbar-nav ms-auto ms-md-0 me-3 me-lg-1">
+            <a class="nav-link text-white"  href=" {% url 'LOGOUT' %} ">Logout</a>
+        </li>
+   
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"

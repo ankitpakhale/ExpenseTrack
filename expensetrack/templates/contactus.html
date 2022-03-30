@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +20,7 @@
         <div class="overlay">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
-                    <a class="navbar-brand text-danger" href="#">
+                    <a class="navbar-brand text-danger" href="{% url 'INDEX' %}">
                         <i class="fas fa-coins fa-2x"></i> Expense</a>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -32,19 +33,19 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ml-auto main-menu">
                             <li class="nav-item active">
-                                <a class="nav-link text-white" href=" {% static 'index.html' %} ">Home</a>
+                                <a class="nav-link text-white" href=" {% url 'INDEX' %} ">Home</a>
                             </li>
+                            
                             <li class="nav-item">
-                                <a class="nav-link text-white" href=" {% static '#About' %} ">About</a>
+                                <a class="nav-link text-white" href=" {% url 'ABOUT' %} ">About us</a>
                             </li>
+                            
                             <li class="nav-item">
-                                <a class="nav-link text-white" href=" {% static '#Contact us' %} ">Contact us</a>
+                                <a class="nav-link text-white" href=" {% url 'CONTACT' %} ">Contact us</a>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link text-white" href=" {% static 'signup.html' %} ">Sign up</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn btn-outline-danger text-white" href=" {% static 'login.html' %} ">Log in</a>
+                                <a class="btn btn-outline-danger text-white" href=" {% url 'LOGOUT' %} ">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -65,28 +66,28 @@
                     <p>we love to here from you</p>
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                    <form>
-
+                    <form method="POST">
+                        {% csrf_token %}
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form3Example3">Full Name</label>
-                            <input type="text" id="form3Example3" class="form-control form-control-lg"
+                            <input name="name" type="text" id="form3Example3" class="form-control form-control-lg"
                                 placeholder="e.g John Smith"/>
                         </div>
                         
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form3Example3">Email</label>
-                            <input type="email" id="form3Example3" class="form-control form-control-lg"
+                            <input name="email" type="email" id="form3Example3" class="form-control form-control-lg"
                                 placeholder="Enter a valid email address" />
                         </div>
 
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form3Example3">Message</label>
-                            <textarea type="text" id="form3Example3" class="form-control form-control-lg"></textarea>
+                            <textarea name="details" type="text" id="form3Example3" class="form-control form-control-lg"></textarea>
                         </div>
 
                         <div class="text-center text-lg-start mt-4 pt-2">
-                            <button type="submit" class="btn btn-danger btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Submit</button>
+                            <input type="submit" id="signupbtn" class="btn btn-danger btn-block mb-3"
+                            style="padding-left: 10.5rem; padding-right: 10.5rem;" value="Login">
                         </div>
 
                     </form>
@@ -129,6 +130,8 @@
             </div>
         </footer>
     </section>
+    {% if msg %}
+    <script>alert('{{ msg }}')</script>
+    {% endif %}
 </body>
-
 </html>

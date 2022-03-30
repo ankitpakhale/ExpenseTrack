@@ -52,10 +52,9 @@
                 </div>
             </nav>
             <div id="font" class="container">
-                <h1 class="display-1 text-white text-center"><span class="text-danger">Plan your</span><br> monthly
-                    <span class="text-danger">expense</span>
+                <h1 class="display-1 text-white text-center">
+                    About <span class="text-danger">us</span>
                 </h1>
-                <button id="btn" class="btn btn-danger" onclick="window.location.href = ' {% url 'EXPENSE' %} '">Get Started</button>
             </div>
         </div>
     </section>
@@ -169,8 +168,6 @@
             <a href="#">expense.com</a>
         </div>
     </footer>
-    {% if msg %}
-    <script>alert('{{ msg }}')</script>
-    {% endif %}
 </body>
+
 </html>
