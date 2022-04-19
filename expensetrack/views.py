@@ -4,49 +4,52 @@ from django.http import HttpResponse
 from django.contrib import messages
 from . models import *
 
-def home(request):
-    expenses = Expense.objects.all()
-    if request.POST:
-        month = request.POST['month']
-        year = request.POST['year']
-        expenses = Expense.objects.filter(date__year=year, date__month=month)
-    return render(request, 'index1.html', {'expenses': expenses})
+def expenses(request):
+    if 'email' in request.session:
+        expenses = Expense.objects.all()
+        if request.POST:
+            month = request.POST['month']
+            year = request.POST['year']
+            expenses = Expense.objects.filter(date__year=year, date__month=month)
+        return render(request, 'index1.html', {'expenses': expenses})
+    return redirect('LOGIN')
 
 def add(request):
-    if request.method == 'POST':
-        item = request.POST['item']
-        amount = request.POST['amount']
-        category = request.POST['category']
-        date = request.POST['date']
-
-        expense = Expense(item=item, amount=amount, category=category, date=date)
-        expense.save()
-
-    return redirect(home)
+    if 'email' in request.session:
+        if request.method == 'POST':
+            item = request.POST['item']
+            amount = request.POST['amount']
+            category = request.POST['category']
+            date = request.POST['date']
+            expense = Expense(item=item, amount=amount, category=category, date=date)
+            expense.save()
+        return redirect('expenses')
+    return redirect('LOGIN')
 
 def update(request, id):
-    id = int(id)
-    expense_fetched = Expense.objects.get(id = id)
-    if request.method == 'POST':
-        item = request.POST['item']
-        amount = request.POST['amount']
-        category = request.POST['category']
-        date = request.POST['date']
-
-        expense_fetched.item = item
-        expense_fetched.amount = amount
-        expense_fetched.category = category
-        expense_fetched.date = date
-
-        expense_fetched.save()
-
-    return redirect(home)
+    if 'email' in request.session:
+        id = int(id)
+        expense_fetched = Expense.objects.get(id = id)
+        if request.method == 'POST':
+            item = request.POST['item']
+            amount = request.POST['amount']
+            category = request.POST['category']
+            date = request.POST['date']
+            expense_fetched.item = item
+            expense_fetched.amount = amount
+            expense_fetched.category = category
+            expense_fetched.date = date
+            expense_fetched.save()
+        return redirect('expenses')
+    return redirect('LOGIN')
 
 def delete(request, id):
-    id = int(id)
-    expense_fetched = Expense.objects.get(id = id)
-    expense_fetched.delete()
-    return redirect(home)
+    if 'email' in request.session:
+        id = int(id)
+        expense_fetched = Expense.objects.get(id = id)
+        expense_fetched.delete()
+        return redirect(home)
+    return redirect('LOGIN')
 
 
 # ----------------------------------------------------------------
