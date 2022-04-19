@@ -4,6 +4,12 @@ from django.http import HttpResponse
 from django.contrib import messages
 from . models import *
 
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from io import BytesIO
+
+
+
 def home(request):
     expenses = Expense.objects.all()
     if request.POST:
@@ -11,18 +17,33 @@ def home(request):
         year = request.POST['year']
         expenses = Expense.objects.filter(date__year=year, date__month=month)
     return render(request, 'index1.html', {'expenses': expenses})
+# -------------------------------------------------------------------------------
+def render_to_pdf(template_src, context_dict={}):
+    template = get_template(template_src)
+    html  = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
+# -------------------------------------------------------------------------------
 
+def report(request):
+    expenses = Expense.objects.all()
+    data = {'expenses': expenses}
+    pdf = render_to_pdf('GeneratePdf.html', data)
+    return HttpResponse(pdf, content_type='application/pdf')
+# -------------------------------------------------------------------------------
 def add(request):
     if request.method == 'POST':
         item = request.POST['item']
         amount = request.POST['amount']
         category = request.POST['category']
         date = request.POST['date']
-
         expense = Expense(item=item, amount=amount, category=category, date=date)
         expense.save()
-
     return redirect(home)
+
 
 def update(request, id):
     id = int(id)
@@ -145,4 +166,5 @@ def userLogOut(request):
     del request.session['email']
     print('User logged out successfully')
     return redirect('LOGIN')
+
 
