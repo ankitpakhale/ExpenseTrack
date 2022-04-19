@@ -8,10 +8,28 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from io import BytesIO
 
-
-
 def home(request):
     expenses = Expense.objects.all()
+
+    labels = []
+    values = []
+
+    for i in expenses:
+        print(i.amount)
+        print(i.item)
+        
+        labels.append(i.item)
+        values.append(i.amount)
+    print(labels,"----------::::---------",values)
+    # fig = {
+    # 'data': [{'labels': labels,
+    #       'values': values,
+    #       'type': 'pie',
+    #       'textfont':{'size':'12'},
+    #       'showlegend':'false'}]
+    # }    
+    # plotly_url = py.plot(fig, filename='myfile', auto_open=False)    
+        
     if request.POST:
         month = request.POST['month']
         year = request.POST['year']
