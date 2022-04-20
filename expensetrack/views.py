@@ -6,7 +6,10 @@ from . models import *
 
 from django.template.loader import get_template
 from xhtml2pdf import pisa
+import plotly.graph_objects as go
 from io import BytesIO
+import plotly.express as px
+
 
 def home(request):
     expenses = Expense.objects.all()
@@ -21,20 +24,16 @@ def home(request):
         labels.append(i.item)
         values.append(i.amount)
     print(labels,"----------::::---------",values)
-    # fig = {
-    # 'data': [{'labels': labels,
-    #       'values': values,
-    #       'type': 'pie',
-    #       'textfont':{'size':'12'},
-    #       'showlegend':'false'}]
-    # }    
-    # plotly_url = py.plot(fig, filename='myfile', auto_open=False)    
+    
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.3)])
+    a = fig.show()
+
         
     if request.POST:
         month = request.POST['month']
         year = request.POST['year']
         expenses = Expense.objects.filter(date__year=year, date__month=month)
-    return render(request, 'index1.html', {'expenses': expenses})
+    return render(request, 'index1.html', {'expenses': expenses, 'a': a})
 # -------------------------------------------------------------------------------
 def render_to_pdf(template_src, context_dict={}):
     template = get_template(template_src)
