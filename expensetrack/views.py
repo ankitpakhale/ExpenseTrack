@@ -25,15 +25,15 @@ def home(request):
         values.append(i.amount)
     print(labels,"----------::::---------",values)
     
-    fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.3)])
-    a = fig.show()
+    # fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.3)])
+    # a = fig.show()
 
         
     if request.POST:
         month = request.POST['month']
         year = request.POST['year']
         expenses = Expense.objects.filter(date__year=year, date__month=month)
-    return render(request, 'index1.html', {'expenses': expenses, 'a': a})
+    return render(request, 'index1.html', {'expenses': expenses})
 # -------------------------------------------------------------------------------
 def render_to_pdf(template_src, context_dict={}):
     template = get_template(template_src)
@@ -49,6 +49,21 @@ def report(request):
     expenses = Expense.objects.all()
     data = {'expenses': expenses}
     pdf = render_to_pdf('GeneratePdf.html', data)
+
+    labels = []
+    values = []
+
+    for i in expenses:
+        print(i.amount)
+        print(i.item)
+        
+        labels.append(i.item)
+        values.append(i.amount)
+    print(labels,"----------::::---------",values)
+    
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.3)])
+    fig.show()
+
     return HttpResponse(pdf, content_type='application/pdf')
 # -------------------------------------------------------------------------------
 def add(request):
