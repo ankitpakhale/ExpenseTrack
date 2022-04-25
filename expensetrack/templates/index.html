@@ -35,15 +35,15 @@
                             <li class="nav-item active">
                                 <a class="nav-link text-white" href=" {% url 'INDEX' %} ">Home</a>
                             </li>
-                            
+
                             <li class="nav-item active">
                                 <a class="nav-link text-white" href=" {% url 'index' %} ">Add Expense</a>
                             </li>
-                            
+
                             <li class="nav-item">
                                 <a class="nav-link text-white" href=" {% url 'ABOUT' %} ">About us</a>
                             </li>
-                            
+
                             <li class="nav-item">
                                 <a class="nav-link text-white" href=" {% url 'CONTACT' %} ">Contact us</a>
                             </li>
@@ -59,7 +59,6 @@
                 <h1 class="display-1 text-white text-center"><span class="text-danger">Plan your</span><br> monthly
                     <span class="text-danger">expense</span>
                 </h1>
-                <button id="btn" class="btn btn-danger" onclick="window.location.href = ' {% url 'EXPENSE' %} '">Get Started</button>
             </div>
         </div>
     </section>
@@ -177,4 +176,5 @@
     <script>alert('{{ msg }}')</script>
     {% endif %}
 </body>
+
 </html>

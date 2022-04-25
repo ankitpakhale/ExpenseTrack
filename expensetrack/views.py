@@ -33,18 +33,14 @@ def render_to_pdf(template_src, context_dict={}):
         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return None
 # -------------------------------------------------------------------------------
-
 def myreport(request):
     if 'email' in request.session:
         email = SignUp.objects.get(email=request.session['email'])
         expenses = Expense.objects.filter(owner = email)
-        
         data = {'expenses': expenses}
         pdf = render_to_pdf('GeneratePdf.html', data)
-
         labels = []
         values = []
-
         for i in expenses:
             print(i.amount)
             print(i.item)
