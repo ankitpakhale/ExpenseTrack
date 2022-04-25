@@ -8,6 +8,7 @@ urlpatterns = [
     path('delete/<int:id>', views.delete, name = 'delete'),
 # ----------------------------------------------------------------------
     path('report/', views.report, name = 'report'),
+    path('myreport/', views.myreport, name = 'myreport'),
 # ----------------------------------------------------------------------
     path('index/', views.index, name = 'INDEX'),
     path('about/', views.about, name = 'ABOUT'),

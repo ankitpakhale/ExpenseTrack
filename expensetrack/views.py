@@ -12,28 +12,17 @@ import plotly.express as px
 
 
 def home(request):
-    expenses = Expense.objects.all()
-
-    labels = []
-    values = []
-
-    for i in expenses:
-        print(i.amount)
-        print(i.item)
-        
-        labels.append(i.item)
-        values.append(i.amount)
-    print(labels,"----------::::---------",values)
-    
-    # fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.3)])
-    # a = fig.show()
-
-        
-    if request.POST:
-        month = request.POST['month']
-        year = request.POST['year']
-        expenses = Expense.objects.filter(date__year=year, date__month=month)
-    return render(request, 'index1.html', {'expenses': expenses})
+    if 'email' in request.session:
+        print("---------------Home---------------")
+        email = SignUp.objects.get(email=request.session['email'])
+        expenses = Expense.objects.filter(owner = email)
+        if request.POST:
+            month = request.POST['month']
+            year = request.POST['year']
+            expenses = Expense.objects.filter(date__year=year, date__month=month)
+        return render(request, 'index1.html', {'expenses': expenses})
+    else:
+        return redirect('LOGIN')   
 # -------------------------------------------------------------------------------
 def render_to_pdf(template_src, context_dict={}):
     template = get_template(template_src)
@@ -44,6 +33,32 @@ def render_to_pdf(template_src, context_dict={}):
         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return None
 # -------------------------------------------------------------------------------
+
+def myreport(request):
+    if 'email' in request.session:
+        email = SignUp.objects.get(email=request.session['email'])
+        expenses = Expense.objects.filter(owner = email)
+        
+        data = {'expenses': expenses}
+        pdf = render_to_pdf('GeneratePdf.html', data)
+
+        labels = []
+        values = []
+
+        for i in expenses:
+            print(i.amount)
+            print(i.item)
+            
+            labels.append(i.item)
+            values.append(i.amount)
+        print(labels,"----------::::---------",values)
+        
+        fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.3)])
+        fig.show()
+
+        return HttpResponse(pdf, content_type='application/pdf')
+    else:
+        return redirect('LOGIN')
 
 def report(request):
     expenses = Expense.objects.all()
@@ -67,15 +82,18 @@ def report(request):
     return HttpResponse(pdf, content_type='application/pdf')
 # -------------------------------------------------------------------------------
 def add(request):
-    if request.method == 'POST':
-        item = request.POST['item']
-        amount = request.POST['amount']
-        category = request.POST['category']
-        date = request.POST['date']
-        expense = Expense(item=item, amount=amount, category=category, date=date)
-        expense.save()
-    return redirect(home)
-
+    if 'email' in request.session:
+        email = SignUp.objects.get(email=request.session['email'])
+        if request.method == 'POST':
+            item = request.POST['item']
+            amount = request.POST['amount']
+            category = request.POST['category']
+            date = request.POST['date']
+            expense = Expense(item=item, amount=amount, category=category, date=date, owner = email)
+            expense.save()
+        return redirect(home)
+    else:
+        return redirect('LOGIN')
 
 def update(request, id):
     id = int(id)

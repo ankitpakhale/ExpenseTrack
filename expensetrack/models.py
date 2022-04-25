@@ -1,14 +1,6 @@
 from django.db import models
 
 # Create your models here.
-class Expense(models.Model):
-    item = models.CharField(max_length = 50)
-    amount = models.IntegerField()
-    category = models.CharField(max_length=50)
-    date = models.DateField()
-
-    def __str__(self):
-        return self.item
 
 class SignUp(models.Model):
     firstname = models.CharField(max_length=30, default='')
@@ -19,6 +11,15 @@ class SignUp(models.Model):
     def __str__(self):
         return self.firstname
 
+class Expense(models.Model):
+    item = models.CharField(max_length = 50)
+    amount = models.IntegerField()
+    category = models.CharField(max_length=50)
+    date = models.DateField()
+    owner = models.ForeignKey(SignUp, on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return self.item
 
 
 class ContactForm(models.Model):

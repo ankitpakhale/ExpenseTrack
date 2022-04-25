@@ -27,14 +27,19 @@
                     style="font-size: 20px; margin: auto; display: block">
                     <a href="{% url 'INDEX' %}" style="text-decoration: none; color: #fff;">Go To Home</a>
                 </button>
-                
+
 
                 <button data-toggle="modal" data-target="" type="button" class="btn btn-primary"
                     style="font-size: 20px; margin: auto; display: block">
-                    <a href="{% url 'report' %}" style="text-decoration: none; color: #fff;">Report</a>
+                    <a href="{% url 'myreport' %}" style="text-decoration: none; color: #fff;">My Report</a>
                 </button>
 
-                
+                <button data-toggle="modal" data-target="" type="button" class="btn btn-primary"
+                    style="font-size: 20px; margin: auto; display: block">
+                    <a href="{% url 'report' %}" style="text-decoration: none; color: #fff;">All Reports</a>
+                </button>
+
+
                 <button data-toggle="modal" data-target="#filter" type="button" class="btn btn-primary"
                     style="font-size: 20px; margin: auto; display: block">Search Data
                 </button>
