@@ -32,32 +32,34 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ml-auto main-menu">
                             <li class="nav-item active">
-                                <a class="nav-link text-white" href=" {% url 'INDEX' %} ">Home</a>
+                                <a class="nav-link text-black" href=" {% url 'INDEX' %} ">Home</a>
                             </li>
-                            
+
                             <li class="nav-item active">
-                                <a class="nav-link text-white" href=" {% url 'index' %} ">Add Expense</a>
-                            </li>
-                            
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href=" {% url 'ABOUT' %} ">About us</a>
-                            </li>
-                            
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href=" {% url 'CONTACT' %} ">Contact us</a>
+                                <a class="nav-link text-black" href=" {% url 'index' %} ">Add Expense</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="btn btn-outline-danger text-white" href=" {% url 'LOGOUT' %} ">Logout</a>
+                                <a class="nav-link text-black" href=" {% url 'ABOUT' %} ">About us</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-black" href=" {% url 'CONTACT' %} ">Contact us</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="btn btn-outline-danger text-black" href=" {% url 'LOGOUT' %} ">Logout</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
-            <div id="font" class="container">
-                <h1 class="display-1 text-white text-center">
-                    Contact <span class="text-danger">us</span>
+
+            <div id="font" class="container mb-5">
+                <h1 class="text-center">
+                    Contact Us
                 </h1>
+                <img style="width: 100%; height: 100%;" src="{% static 'images/03.jpg' %}" alt="">
             </div>
         </div>
     </section>
@@ -75,9 +77,9 @@
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form3Example3">Full Name</label>
                             <input name="name" type="text" id="form3Example3" class="form-control form-control-lg"
-                                placeholder="e.g John Smith"/>
+                                placeholder="e.g John Smith" />
                         </div>
-                        
+
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form3Example3">Email</label>
                             <input name="email" type="email" id="form3Example3" class="form-control form-control-lg"
@@ -86,12 +88,13 @@
 
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form3Example3">Message</label>
-                            <textarea name="details" type="text" id="form3Example3" class="form-control form-control-lg"></textarea>
+                            <textarea name="details" type="text" id="form3Example3"
+                                class="form-control form-control-lg"></textarea>
                         </div>
 
                         <div class="text-center text-lg-start mt-4 pt-2">
                             <input type="submit" id="signupbtn" class="btn btn-danger btn-block mb-3"
-                            style="padding-left: 10.5rem; padding-right: 10.5rem;" value="Login">
+                                style="padding-left: 10.5rem; padding-right: 10.5rem;" value="Login">
                         </div>
 
                     </form>
@@ -138,4 +141,5 @@
     <script>alert('{{ msg }}')</script>
     {% endif %}
 </body>
+
 </html>
