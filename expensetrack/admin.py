@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Expense)
 admin.site.register(SignUp)
 admin.site.register(ContactForm)
+admin.site.register(Subscribe)

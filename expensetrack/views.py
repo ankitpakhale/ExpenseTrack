@@ -120,12 +120,24 @@ def delete(request, id):
 
 def index(request):
     if 'email' in request.session:
-        expenses = Expense.objects.all()
+        msg =  ''
+        owner = SignUp.objects.get(email=request.session['email'])
         if request.POST:
-            month = request.POST['month']
-            year = request.POST['year']
-            expenses = Expense.objects.filter(date__year=year, date__month=month) 
-        return render(request, 'index.html', {'expenses': expenses})
+            email = request.POST['email']
+            try:
+                print("011")
+                Subscribe.objects.get(email=email)
+                print("033")
+                msg = "You have Already Subscribed for our updates"
+                print(msg)
+                return render(request, 'index.html', {'msg': msg})
+            except:
+                sub = Subscribe(name=owner, email=email)
+                sub.save()
+                msg = "You have successfully Subscribed for our updates"
+                print(msg)
+                return render(request, 'index.html', {'msg': msg})
+        return render(request, 'index.html', {'msg': msg})
     return redirect('LOGIN')
 
     
