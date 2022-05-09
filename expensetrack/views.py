@@ -143,44 +143,47 @@ def contact(request):
     if 'email' in request.session:  
         key = ''
         if request.method == 'POST':
-            db = ContactForm(name = request.POST.get('name') ,email = request.POST.get('email'), details = request.POST.get('details'))
+            db = ContactForm(
+                name = request.POST.get('name') ,
+                email = request.POST.get('email'), 
+                details = request.POST.get('details'))
             db.save()
             key = "Your Message has been sent successfully"
-        return render(request, 'contactus.html', {'msg': key})
+        return render(request, 'contact.html', {'msg': key})
     return redirect('LOGIN')
 
 
 def signup(self):
     if self.POST:
         print('signup')
-        FName = self.POST['fname']
-        LName = self.POST['lname']
-        Email = self.POST['email']
-        Password = self.POST['password']
-        ConfirmPassword = self.POST['confirmPassword']
+        name = self.POST['name']
+        email = self.POST['email']
+        number = self.POST['number']
+        address = self.POST['address']
+        password = self.POST['password']
+        confirmPassword = self.POST['confirmPassword']
         
         try:
             print('try')
-            data=SignUp.objects.filter(email=Email)
+            data=SignUp.objects.get(email=email)
             if data:
                 msg = 'Email already taken'
-                return render(self , 'signup.html',{'msg':msg})
-
-            elif ConfirmPassword == Password:
+                return render(self , 'signup.html',{'msg':msg}) 
+        except:
+            if confirmPassword == password:
                 print('elif')
                 v = SignUp()
-                v.firstname = FName
-                v.lastname = LName
-                v.email = Email
-                v.password = Password
+                v.name = name
+                v.email = email
+                v.number = number
+                v.address = address
+                v.password = password
                 v.save()
-                return redirect('LOGIN')
-
+                msg = 'Signup Successfully Done'
+                return render(self , 'signup.html',{'msg':msg})
             else:
                 msg = 'Enter Same Password'
-                return render(self , 'signup.html',{'msg':msg}) 
-        finally:
-            messages.success(self, 'Signup Successfully Done...')
+                return render(self , 'signup.html',{'msg':msg})
     return render(self,'signup.html')
 
 def login(self):

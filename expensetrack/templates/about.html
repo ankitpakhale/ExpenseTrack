@@ -1,136 +1,112 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href=" {% static 'css/style.css' %} ">
-    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Home Page</title>
+	<title>No Sidebar - Landed by HTML5 UP</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href=" {% static 'assets/css/main.css' %} " />
+	<noscript>
+		<link rel="stylesheet" href=" {% static 'assets/css/noscript.css' %} " />
+	</noscript>
 </head>
 
-<body>
+<body class="is-preload">
+	<div id="page-wrapper">
 
-    <section class="sc">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container">
-                <a class="navbar-brand text-danger" href="{% url 'INDEX' %}">
-                    <i class="fas fa-coins fa-2x"></i> Expense</a>
+		<!-- Header -->
+		<header id="header">
+			<h1 id="logo"><a href=" {% static 'index.html' %} ">Landed</a></h1>
+			<nav id="nav">
+				<ul>
+					<li><a href=" {% url 'INDEX' %} ">Home</a></li>
+					<li><a href=" {% url 'index' %} ">Add Expense</a></li>
+					<li><a href=" {% url 'ABOUT' %} ">About</a></li>
+					<li><a href=" {% url 'CONTACT' %} ">Contact</a></li>
+					<li><a href=" {% url 'LOGOUT' %} " class="button primary">Logout</a></li>
+				</ul>
+			</nav>
+		</header>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<!-- Main -->
+		<div id="main" class="wrapper style1">
+			<div class="container">
+				<header class="major">
+					<h2>No Sidebar</h2>
+					<p>Ipsum dolor feugiat aliquam tempus sed magna lorem consequat accumsan</p>
+				</header>
 
-                    <span class="navbar-toggler-icon">
-                        <i class="fas fa-bars text-white fa-2x"></i>
-                    </span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto main-menu">
-                        <li class="nav-item active">
-                            <a class="nav-link text-black" href=" {% url 'INDEX' %} ">Home</a>
-                        </li>
+				<!-- Content -->
+				<section id="content">
+					<a href="#" class="image fit"><img src=" {% static 'images/pic07.jpg' %} " alt="" /></a>
+					<h3>Dolore Amet Consequat</h3>
+					<p>Aliquam massa urna, imperdiet sit amet mi non, bibendum euismod est. Curabitur mi justo,
+						tincidunt vel eros ullamcorper, porta cursus justo. Cras vel neque eros. Vestibulum diam quam,
+						mollis at magna consectetur non, malesuada quis augue. Morbi tincidunt pretium interdum est.
+						Curabitur mi justo, tincidunt vel eros ullamcorper, porta cursus justo. Cras vel neque eros.
+						Vestibulum diam cubilia adipiscing interdum aliquet aliquet placerat cubilia accumsan cep ante
+						nullam adipiscing tortor odio. Iaculis adipiscing accumsan nascetur in cras. Lacinia placerat.
+					</p>
+					<p>Vestibulum diam quam, mollis at consectetur non, malesuada quis augue. Morbi tincidunt pretium
+						interdum. Morbi mattis elementum orci, nec dictum porta cursus justo. Quisque ultricies lorem in
+						ligula condimentum, et egestas turpis sagittis. Cras ac nunc urna. Nullam eget lobortis purus.
+						Phasellus vitae tortor non est placerat tristique faucibus magna adipiscing aliquet blandit nisi
+						dolor accumsan nascetur lorem. Vis enim. Curae. Mi arcu vis aliquam ipsum non accumsan ac mi
+						faucibus amet eu accumsan erat interdum semper accumsan. Eu sagittis tellus accumsan neque lorem
+						penatibus in porttitor. Vivamus commodo curae. Condimentum lobortis praesent id ac lorem. Lorem
+						vis ipsum dolor feugiat consequat dolore adipiscing.</p>
+					<h3>Sed Magna Ornare</h3>
+					<p>In vestibulum massa quis arcu lobortis tempus. Nam pretium arcu in odio vulputate luctus.
+						Suspendisse euismod lorem eget lacinia fringilla. Sed sed felis justo. Nunc sodales elit in
+						laoreet aliquam. Nam gravida, nisl sit amet iaculis porttitor, risus nisi rutrum metus. In
+						accumsan lorem nunc ultrices a ac eu accumsan ac id nullam. Nec lobortis. Faucibus. Mi commodo
+						laoreet arcu at non mi lacinia aliquet non lobortis phasellus accumsan nascetur varius. Integer
+						orci porttitor eu faucibus aliquet faucibus ac accumsan adipiscing accumsan odio. Ut adipiscing.
+					</p>
+					<ul>
+						<li>Faucibus orci lobortis ac adipiscing integer.</li>
+						<li>Col accumsan arcu mi aliquet placerat.</li>
+						<li>Lobortis vestibulum ut magna tempor massa nascetur.</li>
+						<li>Blandit massa non blandit tempor interdum.</li>
+						<li>Lacinia mattis arcu nascetur lobortis.</li>
+					</ul>
+				</section>
 
-                        <li class="nav-item active">
-                            <a class="nav-link text-black" href=" {% url 'index' %} ">Add Expense</a>
-                        </li>
+			</div>
+		</div>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-black" href=" {% url 'ABOUT' %} ">About us</a>
-                        </li>
+		<!-- Footer -->
+		<footer id="footer">
+			<ul class="icons">
+				<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+				<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+				<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+				<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+				<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
+			</ul>
+			<ul class="copyright">
+				<li>&copy; Untitled. All rights reserved.</li>
+				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</footer>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-black" href=" {% url 'CONTACT' %} ">Contact us</a>
-                        </li>
+	</div>
 
-                        <li class="nav-item">
-                            <a class="btn btn-outline-danger text-black" href=" {% url 'LOGOUT' %} ">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <div id="font" class="container">
-            <h1 class="text-center">Welcome to Expense About Section</h1>
-                
-            <img style="width: 100%; height: 100%;" src="{% static 'images/02.jpg' %}" alt="">
+	<!-- Scripts -->
+	<script src=" {% static 'assets/js/jquery.min.js' %} "></script>
+	<script src=" {% static 'assets/js/jquery.scrolly.min.js' %} "></script>
+	<script src=" {% static 'assets/js/jquery.dropotron.min.js' %} "></script>
+	<script src=" {% static 'assets/js/jquery.scrollex.min.js' %} "></script>
+	<script src=" {% static 'assets/js/browser.min.js' %} "></script>
+	<script src=" {% static 'assets/js/breakpoints.min.js' %} "></script>
+	<script src=" {% static 'assets/js/util.js' %} "></script>
+	<script src=" {% static 'assets/js/main.js' %} "></script>
+	{% if msg %}
+	<script>alert('{{ msg }}')</script>
+	{% endif %}
 
-        </div>
-
-    </section>
-    <section id="About" class="mt-5 mb-5">
-        <div class="container text-center mt-5 mb-5">
-            <h1 class="display-3">About</h1>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <i class="fas fa-donate fa-5x text-danger"></i>
-                    <h4 class="display-4">Spending</h4>
-                    <hr>
-                    <p> Money concerns are a major cause of stress and anxiety in the modern world. In my opinion, it is
-                        a really wise idea to save money for the future.
-                    </p>
-                </div>
-                <div class="col-md-4">
-                    <i class="fa-solid fa-piggy-bank fa-5x text-danger"></i>
-                    <h4 class="display-4">Savings</h4>
-                    <hr>
-                    <p>Saving money means putting some money aside instead of spending it. Saving money is a good
-                        practice if you want to build up some savings.
-                    </p>
-                </div>
-                <div class="col-md-4">
-                    <i class="fas fa-chart-line fa-5x text-danger"></i>
-                    <h4 class="display-4">Invest</h4>
-                    <hr>
-                    <p>An asset acquired or invested in to build wealth and save money from the hard earned income or
-                        appreciation.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer id="footer" class="page-footer font-small special-color-dark pt-4">
-        <div class="container">
-            <ul class="list-unstyled list-inline text-center text-info">
-                <li class="list-inline-item">
-                    <a href="#">
-                        <i class="fab fa-facebook fa-2x"></i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#">
-                        <i class="fab fa-instagram fa-2x"></i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#">
-                        <i class="fab fa-twitter fa-2x"></i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#">
-                        <i class="fab fa-google-plus-g fa-2x"></i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#">
-                        <i class="fab fa-linkedin-in fa-2x"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="footer-copyright text-center text-white">
-            &copy;2022Copyright:
-            <a href="#">expense.com</a>
-        </div>
-    </footer>
 </body>
 
 </html>

@@ -21,9 +21,10 @@
 			<nav id="nav">
 				<ul>
 					<li><a href=" {% url 'INDEX' %} ">Home</a></li>
+					<li><a href=" {% url 'index' %} ">Add Expense</a></li>
 					<li><a href=" {% url 'ABOUT' %} ">About</a></li>
 					<li><a href=" {% url 'CONTACT' %} ">Contact</a></li>
-					<li><a href=" {% url 'SIGNUP' %} " class="button primary">Signup</a></li>
+					<li><a href=" {% url 'LOGOUT' %} " class="button primary">Logout</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -32,37 +33,33 @@
 		<div id="main" class="wrapper style1">
 			<div class="container">
 				<header class="major">
-					<h2>Expense</h2>
-					<p>Login to your Expense Account</p>
+					<h2>Contact Us</h2>
+					<p>Let's have a talk</p>
 				</header>
 				<!-- Form -->
 				<section>
-					<h3>Login</h3>
+					<h3>Form</h3>
 					<form method="POST">
 						{% csrf_token %}
 						<div class="row gtr-uniform gtr-50">
 							
 							<div class="col-6 col-12-xsmall">
+								<input type="text" name="name" id="name" value="" placeholder="Name" />
+							</div>
+							<div class="col-6 col-12-xsmall">
 								<input type="email" name="email" id="email" value="" placeholder="Email" />
 							</div>
 							
-							<div class="col-6 col-12-xsmall">
-								<input type="password" name="password" id="name" value="" placeholder="Password" />
+							<div class="col-12">
+								<textarea name="details" id="message" placeholder="Enter your message" rows="6"></textarea>
 							</div>
-						
+
 							<div class="col-12">
 								<ul class="actions">
 									<li><input type="submit" value="Send Message" class="primary" /></li>
 									<li><input type="reset" value="Reset" /></li>
 								</ul>
 							</div>
-							<div class="col-12">
-								<ul class="actions">
-									<li>Not a user? <a href=" {% url 'SIGNUP' %} ">Go for Signup</a>
-									</li>
-								</ul>
-							</div>
-
 						</div>
 					</form>
 				</section>

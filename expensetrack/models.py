@@ -3,13 +3,15 @@ from django.db import models
 # Create your models here.
 
 class SignUp(models.Model):
-    firstname = models.CharField(max_length=30, default='')
-    lastname = models.CharField(max_length=30, default='')
+    name = models.CharField(max_length=30, default='')
     email = models.EmailField(default='')
+    number = models.PositiveIntegerField(default='')
+    address = models.CharField(max_length=100, default='')
     password = models.CharField(default='', max_length=15)
-    
+
     def __str__(self):
-        return self.firstname
+        return self.name
+
 
 class Expense(models.Model):
     item = models.CharField(max_length = 50)
