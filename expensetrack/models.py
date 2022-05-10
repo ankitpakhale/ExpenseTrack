@@ -33,7 +33,6 @@ class ContactForm(models.Model):
         return self.name
 
 class Subscribe(models.Model):
-    name = models.ForeignKey(SignUp, on_delete=models.CASCADE)
     email = models.EmailField(default='')
     
     def __str__(self):

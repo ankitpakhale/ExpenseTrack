@@ -119,32 +119,26 @@ def delete(request, id):
 # ----------------------------------------------------------------
 
 def index(request):
-    if 'email' in request.session:
-        msg =  ''
-        owner = SignUp.objects.get(email=request.session['email'])
-        if request.POST:
-            email = request.POST['email']
-            try:
-                print("011")
-                Subscribe.objects.get(email=email)
-                print("033")
-                msg = "You have Already Subscribed for our updates"
+    msg =  ''
+    if request.POST:
+        email = request.POST['email']
+        try:
+            data = Subscribe.objects.get(email=email)
+            if data:
+                msg = f"{email} is Already Subscribed for our updates"
                 print(msg)
                 return render(request, 'index.html', {'msg': msg})
-            except:
-                sub = Subscribe(name=owner, email=email)
-                sub.save()
-                msg = "You have successfully Subscribed for our updates"
-                print(msg)
-                return render(request, 'index.html', {'msg': msg})
-        return render(request, 'index.html', {'msg': msg})
-    return redirect('LOGIN')
+        except:
+            sub = Subscribe(email=email)
+            sub.save()
+            msg = f"{email} have successfully Subscribed for our updates"
+            print(msg)
+            return render(request, 'index.html', {'msg': msg})
+    return render(request, 'index.html', {'msg': msg})
 
     
 def about(request):
-    if 'email' in request.session:
-        return render(request, 'about.html')
-    return redirect('LOGIN')
+    return render(request, 'about.html')
 
 def expense(request):
     if 'email' in request.session:
@@ -152,17 +146,15 @@ def expense(request):
     return redirect('LOGIN')
 
 def contact(request):
-    if 'email' in request.session:  
-        key = ''
-        if request.method == 'POST':
-            db = ContactForm(
-                name = request.POST.get('name') ,
-                email = request.POST.get('email'), 
-                details = request.POST.get('details'))
-            db.save()
-            key = "Your Message has been sent successfully"
-        return render(request, 'contact.html', {'msg': key})
-    return redirect('LOGIN')
+    key = ''
+    if request.method == 'POST':
+        db = ContactForm(
+            name = request.POST.get('name') ,
+            email = request.POST.get('email'), 
+            details = request.POST.get('details'))
+        db.save()
+        key = "Your Message has been sent successfully"
+    return render(request, 'contact.html', {'msg': key})
 
 
 def signup(self):
@@ -191,7 +183,7 @@ def signup(self):
                 v.address = address
                 v.password = password
                 v.save()
-                msg = 'Signup Successfully Done'
+                msg = f'{name} has Successfully Signed up'
                 return render(self , 'signup.html',{'msg':msg})
             else:
                 msg = 'Enter Same Password'
