@@ -1,104 +1,46 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE HTML>
-<html>
-
-<head>
-	<title>Contact</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href=" {% static 'assets/css/main.css' %} " />
-	<noscript>
-		<link rel="stylesheet" href=" {% static 'assets/css/noscript.css' %} " />
-	</noscript>
-</head>
-
-<body class="is-preload">
-	<div id="page-wrapper">
-
-		<!-- Header -->
-		<header id="header">
-			<h1 id="logo"><a href=" {% static 'index.html' %} ">Expense</a></h1>
-			<nav id="nav">
-				<ul>
-					<li><a href=" {% url 'INDEX' %} ">Home</a></li>
-					<li><a href=" {% url 'index' %} ">Add Expense</a></li>
-					<li><a href=" {% url 'ABOUT' %} ">About</a></li>
-					<li><a href=" {% url 'CONTACT' %} ">Contact</a></li>
-					<li><a href=" {% url 'LOGOUT' %} " class="button primary">Logout</a></li>
-				</ul>
-			</nav>
+{% block content %}
+<!-- Main -->
+<div id="main" class="wrapper style1">
+	<div class="container">
+		<header class="major">
+			<h2>Contact Us</h2>
+			<p>Let's have a talk</p>
 		</header>
+		<!-- Form -->
+		<section>
+			<a href="#" class="image fit"><img src=" {% static 'images/contact.jpg' %} " alt="" /></a>
+			<h3>Contact Us</h3>
+			<form method="POST">
+				{% csrf_token %}
+				<div class="row gtr-uniform gtr-50">
 
-		<!-- Main -->
-		<div id="main" class="wrapper style1">
-			<div class="container">
-				<header class="major">
-					<h2>Contact Us</h2>
-					<p>Let's have a talk</p>
-				</header>
-				<!-- Form -->
-				<section>
-					<a href="#" class="image fit"><img src=" {% static 'images/contact.jpg' %} " alt="" /></a>
-					<h3>Contact Us</h3>
-					<form method="POST">
-						{% csrf_token %}
-						<div class="row gtr-uniform gtr-50">
-							
-							<div class="col-6 col-12-xsmall">
-								<input type="text" name="name" id="name" value="" placeholder="Name" />
-							</div>
-							<div class="col-6 col-12-xsmall">
-								<input type="email" name="email" id="email" value="" placeholder="Email" />
-							</div>
-							
-							<div class="col-12">
-								<textarea name="details" id="message" placeholder="Enter your message" rows="6"></textarea>
-							</div>
+					<div class="col-6 col-12-xsmall">
+						<input type="text" name="name" id="name" value="" placeholder="Name" />
+					</div>
+					<div class="col-6 col-12-xsmall">
+						<input type="email" name="email" id="email" value="" placeholder="Email" />
+					</div>
 
-							<div class="col-12">
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" class="primary" /></li>
-									<li><input type="reset" value="Reset" /></li>
-								</ul>
-							</div>
-						</div>
-					</form>
-				</section>
+					<div class="col-12">
+						<textarea name="details" id="message" placeholder="Enter your message" rows="6"></textarea>
+					</div>
 
-			</div>
-		</div>
-
-		<!-- Footer -->
-		<footer id="footer">
-			<ul class="icons">
-				<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-				<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-				<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-				<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-				<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-				<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-			</ul>
-			<ul class="copyright">
-				<li>&copy; Untitled. All rights reserved.</li>
-				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-			</ul>
-		</footer>
+					<div class="col-12">
+						<ul class="actions">
+							<li><input type="submit" value="Send Message" class="primary" /></li>
+							<li><input type="reset" value="Reset" /></li>
+						</ul>
+					</div>
+				</div>
+			</form>
+		</section>
 
 	</div>
+</div>
 
-	<!-- Scripts -->
-	<script src=" {% static 'assets/js/jquery.min.js' %} "></script>
-	<script src=" {% static 'assets/js/jquery.scrolly.min.js' %} "></script>
-	<script src=" {% static 'assets/js/jquery.dropotron.min.js' %} "></script>
-	<script src=" {% static 'assets/js/jquery.scrollex.min.js' %} "></script>
-	<script src=" {% static 'assets/js/browser.min.js' %} "></script>
-	<script src=" {% static 'assets/js/breakpoints.min.js' %} "></script>
-	<script src=" {% static 'assets/js/util.js' %} "></script>
-	<script src=" {% static 'assets/js/main.js' %} "></script>
-    {% if msg %}
-    <script>alert('{{ msg }}')</script>
-    {% endif %}
-
-</body>
-
-</html>
+{% if msg %}
+<script>alert('{{ msg }}')</script>
+{% endif %}
+{% endblock %}
