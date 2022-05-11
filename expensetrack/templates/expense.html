@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Main -->
+<section>
+	<div class="container">
+
+		<h3>Expense Form</h3>
+
+		<form method="post" action="#">
+			<div class="row gtr-uniform gtr-50">
+				<div class="col-6 col-12-xsmall">
+					<input type="text" name="name" id="name" value="" placeholder="Item Name" />
+				</div>
+				<div class="col-6 col-12-xsmall">
+					<input type="email" name="email" id="email" value="" placeholder="Item Amount" />
+				</div>
+				<div class="col-6">
+					<select name="category" id="category">
+						<option value="" selected disabled hidden>Choose Item category</option>
+						<option value="food" name="category">Food</option>
+						<option value="clothes" name="category">Clothes</option>
+						<option value="travel" name="category">Travel</option>
+					</select>
+				</div>
+				<div class="col-6 col-12-xsmall">
+					<input type="date" name="email" id="email" value="" placeholder="Item Date" />
+				</div>
+
+				<div class="col-12">
+					<ul class="actions">
+						<li><input type="submit" value="Send Message" class="primary" /></li>
+						<li><input type="reset" value="Reset" /></li>
+						<li><input type="reset" value="Add Item Category" /></li>
+					</ul>
+				</div>
+			</div>
+		</form>
+	</div>
+</section>
+
+{% if msg %}
+<script>alert('{{ msg }}')</script>
+{% endif %}
+{% endblock %}

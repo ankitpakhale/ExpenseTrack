@@ -79,16 +79,22 @@ def report(request):
 # -------------------------------------------------------------------------------
 def add(request):
     if 'email' in request.session:
+        print("00")
         email = SignUp.objects.get(email=request.session['email'])
+        print("01")
         if request.method == 'POST':
+            print("02")
             item = request.POST['item']
             amount = request.POST['amount']
             category = request.POST['category']
             date = request.POST['date']
             expense = Expense(item=item, amount=amount, category=category, date=date, owner = email)
+            print("03")
             expense.save()
-        return redirect(home)
+            print("04")
+        return redirect('index')
     else:
+        print("05")
         return redirect('LOGIN')
 
 def update(request, id):
@@ -140,10 +146,6 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
-def expense(request):
-    if 'email' in request.session:
-        return render(request, 'expense.html')
-    return redirect('LOGIN')
 
 def contact(request):
     key = ''
@@ -197,7 +199,6 @@ def login(self):
         try:
             print("Inside first try block")
             check = SignUp.objects.get(email = em)
-            print("Email is ",em,check.email)
             if check.password == pass1:
                 # print(check.Password)
                 self.session['email'] = check.email
@@ -220,7 +221,14 @@ def userLogOut(request):
     print('User logged out successfully')
     return redirect('LOGIN')
 
-
 def base(request):
-    
-    return render(request, 'base.html')
+    if 'email' in request.session:
+        name = SignUp.objects.get(email=request.session['email'])
+        print(name)
+        return render(request, 'base.html', {'name':name})
+    return redirect('LOGIN')
+
+def expense(request):
+    if 'email' in request.session:
+        return render(request, 'expense.html')
+    return redirect('LOGIN')

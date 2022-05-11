@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href=" {% static 'assets/css/main.css' %} " />
 		<noscript><link rel="stylesheet" href=" {% static 'assets/css/noscript.css' %} " /></noscript>
 	</head>
-	<body class="is-preload landing">
+	<body class="is-preload">
 		<div id="page-wrapper">
 			<!-- Header -->
 				<header id="header">
@@ -20,9 +20,11 @@
 							<li><a href=" {% url 'ABOUT' %} ">About</a></li>
 							<li><a href=" {% url 'CONTACT' %} ">Contact</a></li>
 							
-							<li><a href=" {% url 'LOGIN' %} " class="button primary">Login</a></li>
+							{% if name %}
 							<li><a href=" {% url 'LOGOUT' %} " class="button primary">Logout</a></li>
-						
+							{% else %}
+							<li><a href=" {% url 'LOGIN' %} " class="button primary">Login</a></li>
+							{% endif %}
 						</ul>
 					</nav>
 				</header>
@@ -34,13 +36,13 @@
 	<!-- Footer -->
     <footer id="footer">
         <ul class="icons">
-            <li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-            <li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-            <li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-            <li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-            <li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-            <li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-        </ul>
+			<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+			<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+			<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+			<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+			<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+			<li><a href="#" class="icon brands fa-tumblr"><span class="label">Tumblr</span></a></li>
+		</ul>
         <ul class="copyright">
             <li>&copy; perexpense.herokuapp.com. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
         </ul>
