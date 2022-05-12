@@ -13,10 +13,14 @@ class SignUp(models.Model):
         return self.name
 
 
+class Categories(models.Model):
+    category = models.CharField(max_length=50)
+    def __str__(self):
+        return self.category
+
 class Expense(models.Model):
     item = models.CharField(max_length = 50)
     amount = models.IntegerField()
-    category = models.CharField(max_length=50)
     date = models.DateField()
     owner = models.ForeignKey(SignUp, on_delete=models.CASCADE, blank=True, null=True)
 
@@ -34,6 +38,5 @@ class ContactForm(models.Model):
 
 class Subscribe(models.Model):
     email = models.EmailField(default='')
-    
     def __str__(self):
         return self.email
