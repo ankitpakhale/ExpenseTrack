@@ -8,7 +8,6 @@ class SignUp(models.Model):
     number = models.PositiveIntegerField(default='')
     address = models.CharField(max_length=100, default='')
     password = models.CharField(default='', max_length=15)
-
     def __str__(self):
         return self.name
 
@@ -22,8 +21,8 @@ class Expense(models.Model):
     item = models.CharField(max_length = 50)
     amount = models.IntegerField()
     date = models.DateField()
+    category = models.ForeignKey(Categories, on_delete=models.CASCADE, blank=True, null=True)
     owner = models.ForeignKey(SignUp, on_delete=models.CASCADE, blank=True, null=True)
-
     def __str__(self):
         return self.item
 

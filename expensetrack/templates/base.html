@@ -12,18 +12,19 @@
 		<div id="page-wrapper">
 			<!-- Header -->
 				<header id="header">
-					<h1 id="logo"><a href=" {% static 'index.html' %} ">Expense</a></h1>
+					<h1 id="logo"><a href=" {% url 'INDEX' %} ">Expense</a></h1>
 					<nav id="nav">
 						<ul>
 							<li><a href=" {% url 'INDEX' %} ">Home</a></li>
+							<li><a href=" {% url 'category' %} ">Add Category</a></li>
 							<li><a href=" {% url 'index' %} ">Add Expense</a></li>
 							<li><a href=" {% url 'ABOUT' %} ">About</a></li>
 							<li><a href=" {% url 'CONTACT' %} ">Contact</a></li>
 							
 							{% if name %}
-							<li><a href=" {% url 'LOGOUT' %} " class="button primary">Logout</a></li>
-							{% else %}
 							<li><a href=" {% url 'LOGIN' %} " class="button primary">Login</a></li>
+							{% else %}
+							<li><a href=" {% url 'LOGOUT' %} " class="button primary">Logout</a></li>
 							{% endif %}
 						</ul>
 					</nav>

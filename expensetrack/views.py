@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect
 from .models import Expense
 from django.http import HttpResponse
@@ -228,7 +229,54 @@ def base(request):
         return render(request, 'base.html', {'name':name})
     return redirect('LOGIN')
 
+def category(request):
+    if 'email' in request.session:
+        if request.POST:
+            cat_name = request.POST['cat_name']
+            if cat_name == None:
+                msg = f'You can not enter blank category '
+                return render(request, 'categories.html', {'msg':msg})
+            else:    
+                try:
+                    data = Categories.objects.get(category = cat_name)
+                    if data:
+                        msg = f'{cat_name} Category Already Exists'
+                        return render(request, 'categories.html', {'msg':msg})
+                except:
+                    Categories.objects.create(category = cat_name)
+                    msg = f'{cat_name} category created successfully'
+                    print(msg)
+                    return render(request, 'categories.html', {'msg':msg})
+        return render(request, 'categories.html')
+    return redirect('LOGIN')
+
 def expense(request):
     if 'email' in request.session:
-        return render(request, 'expense.html')
+        category = Categories.objects.all()
+        print(category)
+        if request.POST:
+            item_name = request.POST['item_name']
+            item_amount = request.POST['item_amount']
+            item_category = request.POST['item_category']
+            item_date = request.POST['item_date']
+            print(item_name, item_category, item_amount, item_date)
+        
+            category_name = Categories.objects.get(category = item_category)
+
+            # We have to use many to many field here 
+            expense = Expense()
+            print("00")
+            expense.item = item_name
+            print("11")
+            expense.amount = item_amount
+            print("22")
+            expense.category = category_name
+            print("33")
+            expense.date = item_date
+            print("44")
+            expense.save()
+            print("data saved properly")
+            
+        return render(request, 'expense.html', {'category': category})
     return redirect('LOGIN')
+
