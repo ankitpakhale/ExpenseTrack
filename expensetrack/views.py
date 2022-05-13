@@ -253,30 +253,26 @@ def category(request):
 def expense(request):
     if 'email' in request.session:
         category = Categories.objects.all()
+        expense = Expense.objects.all()
         print(category)
         if request.POST:
             item_name = request.POST['item_name']
             item_amount = request.POST['item_amount']
             item_category = request.POST['item_category']
             item_date = request.POST['item_date']
-            print(item_name, item_category, item_amount, item_date)
-        
-            category_name = Categories.objects.get(category = item_category)
-            print(category_name,"This is the category")
-            # We have to use many to many field here 
-            expense = Expense()
-            print("00")
-            expense.item = item_name
-            print("11")
-            expense.amount = item_amount
-            print("22")
-            expense.category = category_name
-            print("33")
-            expense.date = item_date
-            print("44")
-            expense.save()
-            print("data saved properly")
             
-        return render(request, 'expense.html', {'category': category})
+            category_name = Categories.objects.get(category = item_category)
+            email = SignUp.objects.get(email=request.session['email'])
+            expense = Expense(
+                item = item_name,
+                amount = item_amount,
+                category = category_name,
+                date = item_date,
+                owner = email
+            )
+            expense.save()
+            msg = "Expense properly saved"
+            return render(request, 'expense.html', {'msg': msg})
+        return render(request, 'expense.html', {'category': category, 'expense': expense})
     return redirect('LOGIN')
 
