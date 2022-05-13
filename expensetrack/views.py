@@ -146,6 +146,9 @@ def index(request):
     
 def about(request):
     return render(request, 'about.html')
+    
+def elements(request):
+    return render(request, 'elements.html')
 
 
 def contact(request):
@@ -253,9 +256,18 @@ def category(request):
 def expense(request):
     if 'email' in request.session:
         category = Categories.objects.all()
-        expense = Expense.objects.all()
-        print(category)
-        if request.POST:
+        allexpense = Expense.objects.all()
+        total = 0
+        for i in allexpense:
+            total += i.amount
+            
+        if request.POST.get('delete')=='delete':
+            print("This is inside the delete func")
+            
+        if request.POST.get('edit')=='edit':
+            print("This is inside the EDIT func")
+
+        if request.POST.get('adddata')=='adddata':
             item_name = request.POST['item_name']
             item_amount = request.POST['item_amount']
             item_category = request.POST['item_category']
@@ -272,7 +284,7 @@ def expense(request):
             )
             expense.save()
             msg = "Expense properly saved"
-            return render(request, 'expense.html', {'msg': msg})
-        return render(request, 'expense.html', {'category': category, 'expense': expense})
+            return render(request, 'expense.html', {'msg': msg, 'category': category, 'allexpense': allexpense, 'total':total})
+        return render(request, 'expense.html', {'category': category, 'allexpense': allexpense,'total':total})
     return redirect('LOGIN')
 

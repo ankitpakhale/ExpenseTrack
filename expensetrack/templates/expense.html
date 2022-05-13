@@ -38,17 +38,68 @@
 							<li><a href="{% url 'category' %}">Add Item Category</a></li>
 						</ul>
 					</div>
-	
+
 					<div class="col-12 col-12-xsmall">
 						<ul class="actions">
-							<li><input type="submit" value="Send Message" class="primary" /></li>
+							<li><input type="submit" value="Send Message" class="primary" name="adddata"/></li>
 							<li><input type="reset" value="Reset" /></li>
 							<!-- <li><input type="reset" value="Add Item Category" /></li> -->
 						</ul>
 					</div>
 				</div>
 			</form>
-		
+
+		</section>
+		<hr>
+		<section>
+			<h4>Expense Tracker</h4>
+			<div class="table-wrapper">
+				<table class="alt">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Amount</th>
+							<th>Category</th>
+							<th>Date</th>
+							<th>Edit</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for i in allexpense %}
+						<tr>
+							<td>{{i.item}}</td>
+							<td>{{i.amount}}</td>
+							<td>{{i.category}}</td>
+							<td>{{i.date}}</td>
+							<td>
+								<form method="POST">
+									{% csrf_token %}
+									<button type="submit" name="edit">
+										<i class="fas fa-edit"></i>
+									</button>
+								</form>
+							</td>
+
+							<td>
+								<form method="POST">
+									{% csrf_token %}
+									<button type="submit" name="delete">
+										<i class="fa fa-trash"></i>
+									</button>
+								</form>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="1"></td>
+							<td>Total: {{total}}</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
 		</section>
 
 	</div>
