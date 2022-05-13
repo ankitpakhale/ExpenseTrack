@@ -262,7 +262,7 @@ def expense(request):
             print(item_name, item_category, item_amount, item_date)
         
             category_name = Categories.objects.get(category = item_category)
-
+            print(category_name,"This is the category")
             # We have to use many to many field here 
             expense = Expense()
             print("00")
