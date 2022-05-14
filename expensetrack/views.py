@@ -288,3 +288,6 @@ def expense(request):
         return render(request, 'expense.html', {'category': category, 'allexpense': allexpense,'total':total})
     return redirect('LOGIN')
 
+
+
+
