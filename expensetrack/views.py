@@ -159,8 +159,14 @@ def pricing(request):
 def services(request):
     return render(request, 'services.html')
 
+def faq(request):
+    return render(request, 'faq.html')
+
 def team(request):
     return render(request, 'team.html')
+
+def testimonials(request):
+    return render(request, 'testimonials.html')
 
 
 # ----------------------------------------------------------------------
