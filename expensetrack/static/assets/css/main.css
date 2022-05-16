@@ -2288,6 +2288,15 @@ input, select, textarea {
 		height: 3em;
 	}
 
+	input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+input[type=number] {
+	-moz-appearance: textfield !important;
+  }
+
 	textarea {
 		padding: 0.75em 1em;
 	}

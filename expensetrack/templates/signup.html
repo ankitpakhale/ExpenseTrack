@@ -60,7 +60,8 @@
 								<input type="password" name="password" id="name" value="" placeholder="Password" />
 							</div>
 							<div class="col-6 col-12-xsmall">
-								<input type="password" name="confirmPassword" id="email" value="" placeholder="Confirm Password" />
+								<input type="password" name="confirmPassword" id="email" value=""
+									placeholder="Confirm Password" />
 							</div>
 
 							<div class="col-12">
@@ -81,24 +82,54 @@
 					</form>
 				</section>
 
+				<hr>
+				<!-- -------------------------------------------Pop up start-------------------------------------------- --->
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+					Launch static backdrop modal
+				</button>
+
+				<!-- Modal -->
+				<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+					tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								...
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Understood</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- -------------------------------------------Pop up end-------------------------------------------- --->
+				<hr>
+
 			</div>
 		</div>
 
 		<!-- Footer -->
-						<footer id="footer">
-					<ul class="icons">
-						<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-						<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; perexpense.herokuapp.com</li>
-						<li>All rights reserved.</li>
-					</ul>
-				</footer>
+		<footer id="footer">
+			<ul class="icons">
+				<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+				<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+				<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+				<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+				<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
+			</ul>
+			<ul class="copyright">
+				<li>&copy; perexpense.herokuapp.com</li>
+				<li>All rights reserved.</li>
+			</ul>
+		</footer>
 
 
 	</div>
@@ -112,9 +143,9 @@
 	<script src=" {% static 'assets/js/breakpoints.min.js' %} "></script>
 	<script src=" {% static 'assets/js/util.js' %} "></script>
 	<script src=" {% static 'assets/js/main.js' %} "></script>
-    {% if msg %}
-    <script>alert('{{ msg }}')</script>
-    {% endif %}
+	{% if msg %}
+	<script>alert('{{ msg }}')</script>
+	{% endif %}
 
 </body>
 
