@@ -143,9 +143,31 @@ def index(request):
             return render(request, 'index.html', {'msg': msg})
     return render(request, 'index.html', {'msg': msg})
 
-    
+# ----------------------------------------------------------------------
+def innerpage(request):
+    return render(request, 'inner-page.html')
+
+def portfolio(request):
+    return render(request, 'portfolio.html')
+
+def portfoliodetails(request):
+    return render(request, 'portfolio-details.html')
+
+def pricing(request):
+    return render(request, 'pricing.html')
+
+def services(request):
+    return render(request, 'services.html')
+
+def team(request):
+    return render(request, 'team.html')
+
+
+# ----------------------------------------------------------------------
+
 def about(request):
     return render(request, 'about.html')
+
     
 def elements(request):
     return render(request, 'elements.html')

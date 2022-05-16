@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Main -->
+<div id="main" class="wrapper style1">
+	<div class="container">
+		<header class="major">
+			<h2>About Us</h2>
+			<p>Beware of little expenses. A small leak will sink a great ship.</p>
+		</header>
+
+		<!-- Content -->
+		<section id="content">
+			<a href="#" class="image fit"><img src=" {% static 'images/pic07.jpg' %} " alt="" /></a>
+			<h3>Do the Math</h3>
+			<p>Double check your list of essential expenses to ensure you didn't omit any costs you'll need to be
+				prepared to pay. With that done, add up the total cost of your essential bills for each month. Subtract
+				this amount from your monthly income to determine how much is left over for discretionary spending.</p>
+			<hr>
+			<h3>Create Your Budget</h3>
+			<p>Once you've determined your income and essential expenses, it's time to create a budget. Remember, a
+				budget represents your spending plan for each month and helps you keep enough cash on hand to cover your
+				expenses. Review the discretionary income identified in step three. The experts at Mint recommend
+				keeping expenses within a 50/30/20 budget: 50% of your income for essential expenses, 20% for savings,
+				and 30% for discretionary spending. Savings can help build your emergency fund, meaning you'll be able
+				to cover unexpected costs without having to borrow money. However, the above percentages serve only as a
+				guide -- consider your personal income and expenses, and find a system that works for you.</p>
+			<hr>
+			<h3>Maintaining Your Budget</h3>
+			<p>Your budget isn't set in stone; all numbers are subject to change, so make sure to keep your budget
+				up-to-date. Track your expenses consistently to stay on track with your budget, and if you're going over
+				in certain categories month after month, consider starting your budget process again from the beginning.
+				Also, if you've paid off a debt, you may now have additional income put toward savings or special
+				discretionary expenses. Revisit your budget every few months ensures you stay the course with your
+				spending and saving goals and potentially find new areas to cut expenses. If you forgot an expense
+				during your initial budget development, take a moment to add that expense to your spending plan.</p>
+		</section>
+
+	</div>
+</div>
+
+{% if msg %}
+<script>alert('{{ msg }}')</script>
+{% endif %}
+{% endblock %}
