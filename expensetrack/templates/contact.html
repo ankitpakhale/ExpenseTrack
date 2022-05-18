@@ -39,13 +39,11 @@
 </head>
 
 <body>
-
-
   <!-- ======= Header ======= -->
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-<div class="logo">
+      <div class="logo">
         <a href=" {% static 'index.html' %} "><img class="blink_me" src=" {% static 'assets/img/logo.png' %} " alt=""
             class="img-fluid"></a>
       </div>
@@ -56,7 +54,7 @@
           <li><a class="nav-link scrollto" href=" {% url 'ABOUT' %} ">About</a></li>
           <li><a class="nav-link scrollto" href=" {% url 'SERVICES' %} ">Services</a></li>
           <li><a class="nav-link scrollto" href=" {% url 'FAQ' %} ">Faq's</a></li>
-          
+
           <li class="dropdown"><a href="#"><span>PTPT</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href=" {% url 'PORTFOLIO' %} ">Portfolio</a></li>
@@ -110,19 +108,19 @@
               <div class="address">
                 <i class="bi bi-geo-alt"></i>
                 <h4>Location:</h4>
-                <p>A108 Adam Street,<br>New York, NY 535022</p>
+                <p>Prahlad Nagar, <br>Ahmedabad, India</p>
               </div>
 
               <div class="email">
                 <i class="bi bi-envelope"></i>
                 <h4>Email:</h4>
-                <p>info@example.com</p>
+                <p>akp3067@gmail.com</p>
               </div>
 
               <div class="phone">
                 <i class="bi bi-phone"></i>
                 <h4>Call:</h4>
-                <p>+1 5589 55488 55s</p>
+                <p>+91 9407328187</p>
               </div>
 
             </div>
@@ -131,20 +129,18 @@
 
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form" data-aos="fade-left">
+            <form method="POST" role="form" class="php-email-form" data-aos="fade-left">
+              {% csrf_token %}
               <div class="row">
                 <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Name" required>
                 </div>
                 <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
                 </div>
               </div>
               <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-              </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                <textarea class="form-control" name="details" rows="5" placeholder="Message" required></textarea>
               </div>
               <div class="my-3">
                 <div class="loading">Loading</div>
@@ -161,52 +157,6 @@
       </div>
     </section><!-- End Contact Section -->
 
-    <!-- ------------------------TESTING------------------------------- -->
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>backdrop modal</h2>
-          <p>Magnam dolores commodi suscipit eius consequatur ex aliquid fuga eum quidem</p>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-12 mt-5 mt-lg-0">
-
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-              Launch static backdrop modal
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-              aria-labelledby="staticBackdropLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    ...
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Contact Section -->
-
-    <!-- ------------------------TESTING------------------------------- -->
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -268,10 +218,14 @@
   <script src=" {% static 'assets/vendor/glightbox/js/glightbox.min.js' %} "></script>
   <script src=" {% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %} "></script>
   <script src=" {% static 'assets/vendor/swiper/swiper-bundle.min.js' %} "></script>
-  <script src=" {% static 'assets/vendor/php-email-form/validate.js' %} "></script>
+  <!-- <script src=" {% static 'assets/vendor/php-email-form/validate.js' %} "></script> -->
 
   <!-- Template Main JS File -->
   <script src=" {% static 'assets/js/main.js' %} "></script>
+
+  {% if msg %}
+	<script>alert('{{ msg }}')</script>
+	{% endif %}
 
 </body>
 
