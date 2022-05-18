@@ -106,14 +106,12 @@ def update(request, id):
         amount = request.POST['amount']
         category = request.POST['category']
         date = request.POST['date']
-
+        
         expense_fetched.item = item
         expense_fetched.amount = amount
         expense_fetched.category = category
         expense_fetched.date = date
-
         expense_fetched.save()
-
     return redirect(home)
 
 def delete(request, id):
@@ -144,6 +142,7 @@ def index(request):
     return render(request, 'index.html', {'msg': msg})
 
 # ----------------------------------------------------------------------
+
 def innerpage(request):
     return render(request, 'inner-page.html')
 
