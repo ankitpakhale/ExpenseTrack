@@ -246,7 +246,6 @@ def login(self):
 
     return render(self,'login.html')
 
-
 def userLogOut(request):
     del request.session['email']
     print('User logged out successfully')
