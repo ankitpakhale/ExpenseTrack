@@ -15,18 +15,15 @@
 			<form method="POST">
 				{% csrf_token %}
 				<div class="row gtr-uniform gtr-50">
-
 					<div class="col-6 col-12-xsmall">
 						<input type="text" name="name" id="name" value="" placeholder="Name" />
 					</div>
 					<div class="col-6 col-12-xsmall">
 						<input type="email" name="email" id="email" value="" placeholder="Email" />
 					</div>
-
 					<div class="col-12">
 						<textarea name="details" id="message" placeholder="Enter your message" rows="6"></textarea>
 					</div>
-
 					<div class="col-12">
 						<ul class="actions">
 							<li><input type="submit" value="Send Message" class="primary" /></li>
