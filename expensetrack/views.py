@@ -121,7 +121,6 @@ def delete(request, id):
 
 
 # ----------------------------------------------------------------
-
 def index(request):
     msg =  ''
     if request.POST:
@@ -139,7 +138,6 @@ def index(request):
             print(msg)
             return render(request, 'index.html', {'msg': msg})
     return render(request, 'index.html', {'msg': msg})
-
 # ----------------------------------------------------------------------
 
 def innerpage(request):
