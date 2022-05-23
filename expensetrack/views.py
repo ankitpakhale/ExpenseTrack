@@ -11,7 +11,6 @@ import plotly.graph_objects as go
 from io import BytesIO
 import plotly.express as px
 
-
 def home(request):
     if 'email' in request.session:
         print("---------------Home---------------")
@@ -280,6 +279,7 @@ def category(request):
         return render(request, 'categories.html')
     return redirect('LOGIN')
 
+
 def expense(request):
     if 'email' in request.session:
         category = Categories.objects.all()
@@ -287,7 +287,6 @@ def expense(request):
         total = 0
         for i in allexpense:
             total += i.amount
-            
         if request.POST.get('delete')=='delete':
             print("This is inside the delete func")
             
