@@ -1442,6 +1442,10 @@ section {
   padding: 4px 8px;
   width: calc(100% - 100px);
 }
+#footer .footer-top .footer-newsletter form input[type=email]:focus {
+  outline: none;
+}
+
 #footer .footer-top .footer-newsletter form input[type=submit] {
   position: absolute;
   top: 0;

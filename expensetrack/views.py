@@ -178,14 +178,15 @@ def elements(request):
 def contact(request):
     key = ''
     if request.method == 'POST':
-        db = ContactForm(
-            name = request.POST.get('name') ,
-            email = request.POST.get('email'), 
-            details = request.POST.get('details'))
+        # if 'ContactForm' in request.POST:
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        details = request.POST.get('details')
+        db = Contact(name = name, email = email, details = details)
         db.save()
         key = "Your Message has been sent successfully"
+        
     return render(request, 'contact.html', {'msg': key})
-
 
 def signup(self):
     if self.POST:

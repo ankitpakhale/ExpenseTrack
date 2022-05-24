@@ -26,8 +26,7 @@ class Expense(models.Model):
     def __str__(self):
         return self.item
 
-
-class ContactForm(models.Model):
+class Contact(models.Model):
     name = models.CharField(max_length=30, default='')
     email = models.EmailField(default='')
     details = models.CharField(max_length=1000, default='')
