@@ -141,7 +141,7 @@ h1, h2, h3, h4, h5, h6 {
 .navbar a i, .navbar a:focus i {
   font-size: 12px;
   line-height: 0;
-  margin-left: 5px;
+  margin: 0 7px;
 }
 .navbar a:hover, .navbar .active, .navbar .active:focus, .navbar li:hover > a {
   color: #7cc576;
