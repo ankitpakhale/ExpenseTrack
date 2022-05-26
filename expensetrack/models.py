@@ -37,3 +37,9 @@ class Subscribe(models.Model):
     email = models.EmailField(default='')
     def __str__(self):
         return self.email
+    
+class Faqs(models.Model):
+    ques = models.CharField(max_length=50)
+    ans = models.CharField(max_length=300)
+    def __str__(self):
+        return self.ques

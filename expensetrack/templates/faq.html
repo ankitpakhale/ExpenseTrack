@@ -26,9 +26,11 @@
   <link href=" {% static 'assets/vendor/boxicons/css/boxicons.min.css' %} " rel="stylesheet">
   <link href=" {% static 'assets/vendor/glightbox/css/glightbox.min.css' %} " rel="stylesheet">
   <link href=" {% static 'assets/vendor/swiper/swiper-bundle.min.css' %} " rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  
+
   <!-- Template Main CSS File -->
   <link href=" {% static 'assets/css/style.css' %} " rel="stylesheet">
 
@@ -47,17 +49,20 @@
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-<div class="logo">
+      <div class="logo">
         <a href=" {% static 'index.html' %} "><img class="blink_me" src=" {% static 'assets/img/logo.png' %} " alt=""
             class="img-fluid"></a>
       </div>
 
-   
+
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto" href=" {% url 'INDEX' %} "><i class="fa-solid fa-house-user"></i>Home</a></li>
-          <li><a class="nav-link scrollto" href=" {% url 'ABOUT' %} "><i class="fa-solid fa-book-open-reader"></i>About</a></li>
-          <li><a class="nav-link scrollto" href=" {% url 'SERVICES' %} "><i class="fa-solid fa-bell-concierge"></i>Services</a></li>
+          <li><a class="nav-link scrollto" href=" {% url 'INDEX' %} "><i class="fa-solid fa-house-user"></i>Home</a>
+          </li>
+          <li><a class="nav-link scrollto" href=" {% url 'ABOUT' %} "><i
+                class="fa-solid fa-book-open-reader"></i>About</a></li>
+          <li><a class="nav-link scrollto" href=" {% url 'SERVICES' %} "><i
+                class="fa-solid fa-bell-concierge"></i>Services</a></li>
           <li><a class="nav-link scrollto" href=" {% url 'FAQ' %} "><i class="fa-solid fa-question"></i>Faq's</a></li>
 
           <li class="dropdown"><a href="#"><span>PTPT</span> <i class="bi bi-chevron-down"></i></a>
@@ -73,7 +78,8 @@
               </li> -->
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href=" {% url 'CONTACT' %} "><i class="fa-solid fa-address-book"></i>Contact</a></li>
+          <li><a class="nav-link scrollto" href=" {% url 'CONTACT' %} "><i
+                class="fa-solid fa-address-book"></i>Contact</a></li>
 
           <li class="dropdown"><a href="#"><span>Authentication</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
@@ -100,7 +106,7 @@
   <main id="main">
 
     <!-- ======= Frequently Asked Questions Section ======= -->
-    <section id="faq" class="faq">
+    <!-- <section id="faq" class="faq">
       <div class="container">
 
         <div class="section-title" data-aos="fade-up">
@@ -188,7 +194,37 @@
         </ul>
 
       </div>
-    </section><!-- End Frequently Asked Questions Section -->
+    </section>
+     -->
+
+    <section id="faq" class="faq">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <ul class="faq-list">
+
+          {% for i in faqlist %}
+
+          <li data-aos="fade-up">
+            <a data-bs-toggle="collapse" class="collapsed" data-bs-target="{{i.id}}">{{i.ques}}<i
+                class="bx bx-chevron-down icon-show"></i><i class="bx bx-x icon-close"></i></a>
+            <div id="{{i.id}}" class="collapse" data-bs-parent=".faq-list">
+
+              <p>{{i.ans}}</p>
+              
+            </div>
+          </li>
+          {% endfor %}
+
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- End Frequently Asked Questions Section -->
 
     <!-- ------------------------TESTING------------------------------- -->
     <!-- ======= Contact Section ======= -->
