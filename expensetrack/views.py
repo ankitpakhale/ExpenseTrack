@@ -157,6 +157,7 @@ def pricing(request):
 def services(request):
     return render(request, 'services.html')
 
+
 def faq(request):
     faqlist = Faqs.objects.all()
     idlist = []
@@ -165,6 +166,9 @@ def faq(request):
     idlist = str(idlist)
     print(type(idlist))
     return render(request, 'faq.html', {'faqlist': faqlist, 'idlist': idlist})
+
+
+
 
 def team(request):
     return render(request, 'team.html')
