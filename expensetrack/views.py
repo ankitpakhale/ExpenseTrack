@@ -25,6 +25,8 @@ def home(request):
         return render(request, 'index1.html', {'expenses': expenses})
     else:
         return redirect('LOGIN')   
+    
+    
 # -------------------------------------------------------------------------------
 def render_to_pdf(template_src, context_dict={}):
     template = get_template(template_src)
