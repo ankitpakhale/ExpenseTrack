@@ -11,7 +11,6 @@ import plotly.graph_objects as go
 from io import BytesIO
 import plotly.express as px
 
-
 def home(request):
     if 'email' in request.session:
         print("---------------Home---------------")
@@ -283,7 +282,6 @@ def category(request):
                     return render(request, 'categories.html', {'msg':msg})
         return render(request, 'categories.html')
     return redirect('LOGIN')
-
 
 def expense(request):
     if 'email' in request.session:
