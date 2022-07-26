@@ -29,19 +29,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
-    
-
 
   <!-- Template Main CSS File -->
   <link href=" {% static 'assets/css/style.css' %} " rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Knight - v4.7.0
-  * Template URL: https://bootstrapmade.com/knight-free-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -56,13 +47,17 @@
             class="img-fluid"></a>
       </div>
 
-
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto" href=" {% url 'INDEX' %} "><i class="fa-solid fa-house-user"></i>Home</a>
           </li>
           <li><a class="nav-link scrollto" href=" {% url 'ABOUT' %} "><i
                 class="fa-solid fa-book-open-reader"></i>About</a></li>
+
+          <li><a class="nav-link scrollto" href=" {% url 'ALL_EXPENSE' %} "><i class="fas fa-coins"></i>Expense</a>
+          </li>
+
+
           <li><a class="nav-link scrollto" href=" {% url 'SERVICES' %} "><i
                 class="fa-solid fa-bell-concierge"></i>Services</a></li>
           <li><a class="nav-link scrollto" href=" {% url 'FAQ' %} "><i class="fa-solid fa-question"></i>Faq's</a></li>
@@ -73,11 +68,6 @@
               <li><a href=" {% url 'TEAM' %} "><i class="fa-solid fa-people-group"></i>Team</a></li>
               <li><a href=" {% url 'PRICING' %} "><i class="fa-solid fa-money-bill-trend-up"></i>Pricing</a></li>
               <li><a href=" {% url 'TESTIMONIALS' %} "><i class="fa-solid fa-asterisk"></i>Testimonials</a></li>
-              <!-- <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                </ul>
-              </li> -->
             </ul>
           </li>
           <li><a class="nav-link scrollto" href=" {% url 'CONTACT' %} "><i
@@ -88,21 +78,17 @@
               <li><a href=" {% url 'SIGNUP' %} "><i class="fa-solid fa-user-plus"></i>Signup</a></li>
               <li><a href=" {% url 'LOGIN' %} "><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
               <li><a href=" {% url 'LOGOUT' %} "><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a></li>
-              <!-- <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                </ul>
-              </li> -->
             </ul>
           </li>
 
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+      </nav>
+      <!-- .navbar -->
 
     </div>
   </header><!-- End Header -->
-  {% block content %} 
+  {% block content %}
   {% endblock%}
 
   <!-- ======= Footer ======= -->

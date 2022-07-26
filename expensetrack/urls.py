@@ -12,7 +12,6 @@ urlpatterns = [
     path('expense/', views.expense, name = 'expense'),
     path('category/', views.category, name = 'category'),
 # ----------------------------------------------------------------------
-
     path('report/', views.report, name = 'report'),
     path('myreport/', views.myreport, name = 'myreport'),
 # ----------------------------------------------------------------------
@@ -30,5 +29,9 @@ urlpatterns = [
     path('signup/', views.signup, name = 'SIGNUP'),
     path('login/', views.login, name = 'LOGIN'),
     path('logout/', views.userLogOut, name = 'LOGOUT'),
+# ----------------------------------------------------------------------
+    path('add_category/', views.add_category, name = 'add_category'),
+    path('allexpense/', views.ALL_EXPENSE, name = 'ALL_EXPENSE'),
+
 # ----------------------------------------------------------------------
 ]

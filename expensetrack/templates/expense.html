@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main id="main">
+
+    <!-- ======= Contact Section ======= -->
+    <section id="expense" class="expense section-bg">
+        <div class="container">
+
+            <div class="row mb-5">
+                <div class="section-title">
+                    <h2>Add Category</h2>
+                    <p>Add new category of your expense</p>
+                </div>
+                <form method="POST" action="{% url 'add_category' %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="mb-3 col-md-10">
+                            <input placeholder="Category Name" name="category_name" type="text" class="form-control" required>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary">Add New Category</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-title">
+                        <h2>Add Expense</h2>
+                        <p>Add your daily expense here</p>
+                    </div>
+                    
+                    <form method="POST" action="{% url 'add_expense' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <div class="dropdown show">
+                                <select class="btn btn-secondary dropdown-toggle" name="cars" id="cars">
+                                    <option disabled selected value="">Item category</option>
+                                    <option value="volvo">Food</option>
+                                    <option value="saab">Travel</option>
+                                    <option value="mercedes">Cloths</option>
+                                    <option value="audi">Others</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input placeholder="Item Name" type="text" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <input placeholder="Item Price" type="text" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <input placeholder="Narration" type="text" class="form-control">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</main>
+
+{% if msg %}
+<script>alert('{{ msg }}')</script>
+{% endif %}
+
+{% endblock %}

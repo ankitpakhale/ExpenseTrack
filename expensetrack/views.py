@@ -317,6 +317,24 @@ def expense(request):
         return render(request, 'expense.html', {'category': category, 'allexpense': allexpense,'total':total})
     return redirect('LOGIN')
 
+# ############################# New Work #################################
 
+def add_category(request):
+    category_name = request.POST['category_name']
+    try:
+        data = Categories.objects.get(category = category_name)
+        print("this category is already in database")
+    except:
+        Categories.objects.create(category = category_name)
+        print("created successfully")
+    return redirect('ALL_EXPENSE')
+
+def add_expense(request):
+    print("created successfully")
+    return redirect('ALL_EXPENSE')
+
+
+def ALL_EXPENSE(request):
+    return render(request, 'expense.html')
 
 
