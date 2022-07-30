@@ -1548,7 +1548,6 @@ section {
 /* ------------------------------------------- */
 .card{
   height: auto;
-  /* width: auto; */
   background: #fff;
   padding: 2rem;
   border-radius: 10px;
@@ -1572,7 +1571,4 @@ section {
   text-align: left;
 }
 
-/* #expense .add_expense .left, .right{
-  margin: 20px 40px;
-} */
 /* ------------------------------------------- */

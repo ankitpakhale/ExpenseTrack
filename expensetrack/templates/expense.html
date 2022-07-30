@@ -15,19 +15,19 @@
                 <form method="POST" action="{% url 'add_category' %}">
                     {% csrf_token %}
                     <div class="row">
-                        <div class="mb-3 col-md-9">
+                        <div class="mb-3 col-md-11">
                             <input placeholder="Category Name" name="category_name" type="text" class="form-control"
                                 required>
                         </div>
-                        <div class="col-md-3">
-                            <button type="submit" class="btn btn-primary">Add New Category</button>
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-primary">Add</button>
                         </div>
                     </div>
                 </form>
             </div>
 
             <div class="row add_expense">
-                <div class="col-lg-8 card left">
+                <div class="card left">
                     <div class="section-title">
                         <h2>Add Expense</h2>
                         <p>Add your daily expense here</p>
@@ -53,10 +53,6 @@
                         <div class="mb-3">
                             <input name="item_narr" placeholder="Narration" type="text" class="form-control">
                         </div>
-                        <!-- <div class="mb-3 form-check">
-                            <input name="item_check" type="checkbox" class="form-check-input" id="exampleCheck1" required>
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div> -->
                         <button type="submit" class="btn btn-primary">Add Expense</button>
                     </form>
                 </div>
