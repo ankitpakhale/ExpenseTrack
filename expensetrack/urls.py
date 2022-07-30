@@ -32,6 +32,8 @@ urlpatterns = [
 # ----------------------------------------------------------------------
     path('add_category/', views.add_category, name = 'add_category'),
     path('allexpense/', views.ALL_EXPENSE, name = 'ALL_EXPENSE'),
+# ----------------------------------------------------------------------
+    path('add_expense/', views.add_expense, name = 'add_expense'),
 
 # ----------------------------------------------------------------------
 ]

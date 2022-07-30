@@ -318,23 +318,47 @@ def expense(request):
     return redirect('LOGIN')
 
 # ############################# New Work #################################
-
 def add_category(request):
-    category_name = request.POST['category_name']
-    try:
-        data = Categories.objects.get(category = category_name)
-        print("this category is already in database")
-    except:
-        Categories.objects.create(category = category_name)
-        print("created successfully")
-    return redirect('ALL_EXPENSE')
+    if 'email' in request.session:
+        email = SignUp.objects.get(email=request.session['email'])
+        category_name = request.POST['category_name']
+        try:
+            data = Categories.objects.get(category = category_name, owner = email)
+            print("this category is already in database")
+        except:
+            Categories.objects.create(category = category_name, owner = email)
+            print(category_name," created successfully")
+        return redirect('ALL_EXPENSE')
+    return redirect('LOGIN')
 
 def add_expense(request):
-    print("created successfully")
-    return redirect('ALL_EXPENSE')
-
+    if 'email' in request.session:
+        email = SignUp.objects.get(email=request.session['email'])
+        if request.method == 'POST':           
+            expense_cat = request.POST['item_cat']
+            expense_name = request.POST['item_name']
+            expense_price = request.POST['item_price']
+            expense_narr = request.POST['item_narr']
+            expense_cat = Categories.objects.filter(owner = email).get(category=expense_cat) 
+            Expense.objects.create(
+                item = expense_name,
+                amount = expense_price, 
+                category = expense_cat,
+                owner = email,
+                narration = expense_narr
+            )
+            print("expense created successfully")
+        return redirect('ALL_EXPENSE')
+    return redirect('LOGIN')
 
 def ALL_EXPENSE(request):
-    return render(request, 'expense.html')
+    if 'email' in request.session:
+        email = SignUp.objects.get(email=request.session['email'])
+        add_category = Categories.objects.filter(owner = email)
+        context = {
+            'add_category': add_category
+        }
+        return render(request, 'expense.html', context=context)
+    return redirect('LOGIN')
 
 
