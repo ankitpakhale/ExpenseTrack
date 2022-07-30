@@ -7,7 +7,7 @@
     <section id="expense" class="expense section-bg">
         <div class="container">
 
-            <div class="row mb-5">
+            <div class="row add_category card">
                 <div class="section-title">
                     <h2>Add Category</h2>
                     <p>Add new category of your expense</p>
@@ -15,11 +15,11 @@
                 <form method="POST" action="{% url 'add_category' %}">
                     {% csrf_token %}
                     <div class="row">
-                        <div class="mb-3 col-md-10">
+                        <div class="mb-3 col-md-9">
                             <input placeholder="Category Name" name="category_name" type="text" class="form-control"
                                 required>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <button type="submit" class="btn btn-primary">Add New Category</button>
                         </div>
                     </div>
@@ -27,12 +27,11 @@
             </div>
 
             <div class="row add_expense">
-                <div class="col-lg-6">
+                <div class="col-lg-8 card left">
                     <div class="section-title">
                         <h2>Add Expense</h2>
                         <p>Add your daily expense here</p>
                     </div>
-
                     <form method="POST" action="{% url 'add_expense' %}">
                         {% csrf_token %}
                         <div class="mb-3">
@@ -62,9 +61,7 @@
                     </form>
                 </div>
             </div>
-
         </div>
-
     </section>
 </main>
 
