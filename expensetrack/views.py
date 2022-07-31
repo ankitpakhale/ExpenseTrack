@@ -354,9 +354,11 @@ def add_expense(request):
 def ALL_EXPENSE(request):
     if 'email' in request.session:
         email = SignUp.objects.get(email=request.session['email'])
+        all_expense = Expense.objects.filter(owner=email)
         add_category = Categories.objects.filter(owner = email)
         context = {
-            'add_category': add_category
+            'add_category': add_category,
+            'all_expense': all_expense,
         }
         return render(request, 'expense.html', context=context)
     return redirect('LOGIN')

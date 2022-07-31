@@ -6,55 +6,94 @@
     <!-- ======= Contact Section ======= -->
     <section id="expense" class="expense section-bg">
         <div class="container">
-
-            <div class="row add_category card">
-                <div class="section-title">
-                    <h2>Add Category</h2>
-                    <p>Add new category of your expense</p>
-                </div>
-                <form method="POST" action="{% url 'add_category' %}">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="mb-3 col-md-11">
-                            <input placeholder="Category Name" name="category_name" type="text" class="form-control"
-                                required>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="row add_category card">
+                        <div class="all_expense">
+                            <h2>Add Category</h2>
+                            <p>Add new category of your expense</p>
                         </div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-primary">Add</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="row add_expense">
-                <div class="card left">
-                    <div class="section-title">
-                        <h2>Add Expense</h2>
-                        <p>Add your daily expense here</p>
-                    </div>
-                    <form method="POST" action="{% url 'add_expense' %}">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <div class="dropdown show">
-                                <select class="btn btn-secondary dropdown-toggle" name="item_cat" id="cars" required>
-                                    <option disabled selected value="">Item category</option>
-                                    {% for i in add_category %}
-                                    <option value="{{i}}">{{i}}</option>
-                                    {% endfor %}
-                                </select>
+                        <form method="POST" action="{% url 'add_category' %}">
+                            {% csrf_token %}
+                            <div class="row mb-3">
+                                <input placeholder="Category Name" name="category_name" type="text" class="form-control"
+                                    required>
                             </div>
+                            <div class="row">
+                                <button type="submit" class="btn btn-primary">Add Category</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="row add_expense mb-4">
+                        <div class="card">
+                            <div class="all_expense">
+                                <h2>Add Expense</h2>
+                                <p>Add your daily expense here</p>
+                            </div>
+                            <form method="POST" action="{% url 'add_expense' %}">
+                                {% csrf_token %}
+
+                                <div class="dropdown show row mb-3">
+                                    <select class="btn btn-secondary dropdown-toggle" name="item_cat" id="cars"
+                                        required>
+                                        <option disabled selected value="">Item category</option>
+                                        {% for i in add_category %}
+                                        <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="row mb-3">
+                                    <input name="item_name" placeholder="Item Name" type="text" class="form-control"
+                                        required>
+                                </div>
+                                <div class="row mb-3">
+                                    <input name="item_price" placeholder="Item Price" type="number" class="form-control"
+                                        required>
+                                </div>
+                                <div class="row mb-3">
+                                    <input name="item_narr" placeholder="Narration" type="text" class="form-control">
+                                </div>
+                                <div class="row">
+                                    <button type="submit" class="btn btn-primary">Add Expense</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="mb-3">
-                            <input name="item_name" placeholder="Item Name" type="text" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="row your_expense card">
+                        <div class="all_expense">
+                            <h2>Your Expenses</h2>
+                            <p>Your all expense is here</p>
                         </div>
-                        <div class="mb-3">
-                            <input name="item_price" placeholder="Item Price" type="text" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <input name="item_narr" placeholder="Narration" type="text" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Expense</button>
-                    </form>
+                        <table class="tablemain">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Sr No</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Update</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in all_expense %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ item.category }}</td>
+                                    <td>{{ item.item }}</td>
+                                    <td>{{ item.amount }}</td>
+                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
+                                    <td><i class="fa-solid fa-trash"></i></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
                 </div>
             </div>
         </div>
