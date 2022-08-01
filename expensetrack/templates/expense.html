@@ -63,6 +63,9 @@
                 </div>
 
                 <div class="col-lg-8">
+                    <div class="row card expense_report">
+                        <a href="{% url 'myreport' %}" class="btn btn-primary">Expense Report</a>
+                    </div>
                     <div class="row your_expense card">
                         <div class="all_expense">
                             <h2>Your Expenses</h2>
@@ -71,12 +74,12 @@
                         <table class="tablemain">
                             <thead>
                                 <tr>
-                                    <th scope="col">Sr No</th>
-                                    <th scope="col">Category</th>
-                                    <th scope="col">Item</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Update</th>
-                                    <th scope="col">Delete</th>
+                                    <th>Sr No</th>
+                                    <th>Category</th>
+                                    <th>Item</th>
+                                    <th>Price</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,12 +90,11 @@
                                     <td>{{ item.item }}</td>
                                     <td>{{ item.amount }}</td>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><i class="fa-solid fa-trash"></i></td>
+                                    <td><a href="{% url 'delete' item.id %}"><i class="fa-solid fa-trash"></i></a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>

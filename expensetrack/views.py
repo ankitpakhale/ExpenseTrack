@@ -11,19 +11,6 @@ import plotly.graph_objects as go
 from io import BytesIO
 import plotly.express as px
 
-def home(request):
-    if 'email' in request.session:
-        print("---------------Home---------------")
-        email = SignUp.objects.get(email=request.session['email'])
-        expenses = Expense.objects.filter(owner = email)
-        if request.POST:
-            month = request.POST['month']
-            year = request.POST['year']
-            expenses = Expense.objects.filter(date__year=year, date__month=month)
-        return render(request, 'index1.html', {'expenses': expenses})
-    else:
-        return redirect('LOGIN')   
-    
     
 # -------------------------------------------------------------------------------
 def render_to_pdf(template_src, context_dict={}):
@@ -39,66 +26,26 @@ def myreport(request):
     if 'email' in request.session:
         email = SignUp.objects.get(email=request.session['email'])
         expenses = Expense.objects.filter(owner = email)
+        all_categories = Categories.objects.filter(owner = email)
         data = {'expenses': expenses}
         pdf = render_to_pdf('GeneratePdf.html', data)
-        labels = []
+        
+        cat_name = []
+        for c in all_categories:
+            cat_name.append(c.category)
+
         values = []
         for i in expenses:
             print(i.amount)
-            print(i.item)
-            
-            labels.append(i.item)
             values.append(i.amount)
-        print(labels,"----------::::---------",values)
         
-        fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.3)])
+        fig = go.Figure(data=[go.Pie(labels=cat_name, values=values, hole=.3)])
         fig.show()
 
         return HttpResponse(pdf, content_type='application/pdf')
     else:
         return redirect('LOGIN')
-
-def report(request):
-    expenses = Expense.objects.all()
-    data = {'expenses': expenses}
-    pdf = render_to_pdf('GeneratePdf.html', data)
-
-    labels = []
-    values = []
-
-    for i in expenses:
-        print(i.amount)
-        print(i.item)
-        
-        labels.append(i.item)
-        values.append(i.amount)
-    print(labels,"----------::::---------",values)
-    
-    fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.3)])
-    fig.show()
-
-    return HttpResponse(pdf, content_type='application/pdf')
 # -------------------------------------------------------------------------------
-def add(request):
-    if 'email' in request.session:
-        print("00")
-        email = SignUp.objects.get(email=request.session['email'])
-        print("01")
-        if request.method == 'POST':
-            print("02")
-            item = request.POST['item']
-            amount = request.POST['amount']
-            category = request.POST['category']
-            date = request.POST['date']
-            expense = Expense(item=item, amount=amount, category=category, date=date, owner = email)
-            print("03")
-            expense.save()
-            print("04")
-        return redirect('index')
-    else:
-        print("05")
-        return redirect('LOGIN')
-
 def update(request, id):
     id = int(id)
     expense_fetched = Expense.objects.get(id = id)
@@ -113,15 +60,7 @@ def update(request, id):
         expense_fetched.category = category
         expense_fetched.date = date
         expense_fetched.save()
-    return redirect(home)
-
-def delete(request, id):
-    id = int(id)
-    expense_fetched = Expense.objects.get(id = id)
-    expense_fetched.delete()
-    return redirect(home)
-
-
+    return redirect(ALL_EXPENSE)
 # ----------------------------------------------------------------
 def index(request):
     msg =  ''
@@ -158,13 +97,7 @@ def services(request):
     return render(request, 'services.html')
 
 def faq(request):
-    faqlist = Faqs.objects.all()
-    idlist = []
-    for i in faqlist:
-        idlist.append(i.id)
-    idlist = str(idlist)
-    print(type(idlist))
-    return render(request, 'faq.html', {'faqlist': faqlist, 'idlist': idlist})
+    return render(request, 'faq.html')
 
 def team(request):
     return render(request, 'team.html')
@@ -251,70 +184,17 @@ def login(self):
 
 
 def userLogOut(request):
-    del request.session['email']
-    print('User logged out successfully')
-    return redirect('LOGIN')
+    if request.session['email']:
+        del request.session['email']
+        print('User logged out successfully')
+    else:
+        return redirect('LOGIN')
 
 def base(request):
     if 'email' in request.session:
         name = SignUp.objects.get(email=request.session['email'])
         print(name)
         return render(request, 'base.html', {'name':name})
-    return redirect('LOGIN')
-
-def category(request):
-    if 'email' in request.session:
-        if request.POST:
-            cat_name = request.POST['cat_name']
-            if cat_name == None:
-                msg = f'You can not enter blank category '
-                return render(request, 'categories.html', {'msg':msg})
-            else:    
-                try:
-                    data = Categories.objects.get(category = cat_name)
-                    if data:
-                        msg = f'{cat_name} Category Already Exists'
-                        return render(request, 'categories.html', {'msg':msg})
-                except:
-                    Categories.objects.create(category = cat_name)
-                    msg = f'{cat_name} category created successfully'
-                    print(msg)
-                    return render(request, 'categories.html', {'msg':msg})
-        return render(request, 'categories.html')
-    return redirect('LOGIN')
-
-def expense(request):
-    if 'email' in request.session:
-        category = Categories.objects.all()
-        allexpense = Expense.objects.all()
-        total = 0
-        for i in allexpense:
-            total += i.amount
-        if request.POST.get('delete')=='delete':
-            print("This is inside the delete func")
-            
-        if request.POST.get('edit')=='edit':
-            print("This is inside the EDIT func")
-
-        if request.POST.get('adddata')=='adddata':
-            item_name = request.POST['item_name']
-            item_amount = request.POST['item_amount']
-            item_category = request.POST['item_category']
-            item_date = request.POST['item_date']
-            
-            category_name = Categories.objects.get(category = item_category)
-            email = SignUp.objects.get(email=request.session['email'])
-            expense = Expense(
-                item = item_name,
-                amount = item_amount,
-                category = category_name,
-                date = item_date,
-                owner = email
-            )
-            expense.save()
-            msg = "Expense properly saved"
-            return render(request, 'expense.html', {'msg': msg, 'category': category, 'allexpense': allexpense, 'total':total})
-        return render(request, 'expense.html', {'category': category, 'allexpense': allexpense,'total':total})
     return redirect('LOGIN')
 
 # ############################# New Work #################################
@@ -363,4 +243,8 @@ def ALL_EXPENSE(request):
         return render(request, 'expense.html', context=context)
     return redirect('LOGIN')
 
-
+def delete(request, id):
+    id = int(id)
+    expense_fetched = Expense.objects.get(id = id)
+    expense_fetched.delete()
+    return redirect(ALL_EXPENSE)
