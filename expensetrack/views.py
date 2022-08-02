@@ -26,22 +26,22 @@ def myreport(request):
     if 'email' in request.session:
         email = SignUp.objects.get(email=request.session['email'])
         expenses = Expense.objects.filter(owner = email)
-        all_categories = Categories.objects.filter(owner = email)
-        data = {'expenses': expenses}
+        total = 0
+        for i in expenses:
+            total += int(i.amount)
+        print(total)
+        data = {
+            'expenses': expenses,
+            'total': total
+            }
         pdf = render_to_pdf('GeneratePdf.html', data)
-        
         cat_name = []
-        for c in all_categories:
-            cat_name.append(c.category)
-
         values = []
         for i in expenses:
-            print(i.amount)
             values.append(i.amount)
-        
+            cat_name.append(str(i.category))
         fig = go.Figure(data=[go.Pie(labels=cat_name, values=values, hole=.3)])
         fig.show()
-
         return HttpResponse(pdf, content_type='application/pdf')
     else:
         return redirect('LOGIN')
@@ -184,10 +184,12 @@ def login(self):
 
 
 def userLogOut(request):
-    if request.session['email']:
-        del request.session['email']
-        print('User logged out successfully')
-    else:
+    try:
+        if request.session['email']:
+            del request.session['email']
+            print('User logged out successfully')
+            return redirect('LOGIN')
+    except:
         return redirect('LOGIN')
 
 def base(request):

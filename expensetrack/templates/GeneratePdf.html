@@ -245,22 +245,25 @@
     <h3>Financial Expenses</h3>   
     <table class="inventory">
         <tr>
-          <th colspan="3"><span contenteditable>Date</span></th>
+          <th colspan="3"><span contenteditable>Date & Time</span></th>
+          <th colspan="3"><span contenteditable>Category</span></th>
           <th colspan="3"><span contenteditable>Item</span></th>
           <th colspan="3"><span contenteditable>Amount</span></th>        
-          <th colspan="3"><span contenteditable>Category</span></th>
           <th colspan="3"><span contenteditable>Narration</span></th>
         </tr>
         {% for expense in expenses %}
       <tr>
         <td colspan="3">{{ expense.date }}</td>
+        <td colspan="3">{{ expense.category }}</td>
         <td colspan="3">{{ expense.item.capitalize }}</td>
         <td colspan="3">{{ expense.amount }}</td>
-        <td colspan="3">{{ expense.category }}</td>
         <td colspan="3">{{ expense.narration }}</td>
       </tr>
       {% endfor %}
     </table>
+    {% if total %}
+    <h4>Your Total Expenses: {{total}}</h4>
+    {% endif %}
   </article>
   
  

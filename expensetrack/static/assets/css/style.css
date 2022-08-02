@@ -1954,5 +1954,8 @@ table tr:nth-of-type(even):hover {
   background-color: #b6c5b5;
 }
 /* table css end */
-
+.no_expense{
+  color: #6ba766;
+  text-align: center;
+}
 /* ------------------------------------------- */

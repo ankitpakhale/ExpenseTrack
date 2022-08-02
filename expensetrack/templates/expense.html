@@ -63,6 +63,7 @@
                 </div>
 
                 <div class="col-lg-8">
+                    {% if all_expense %}
                     <div class="row card expense_report">
                         <a href="{% url 'myreport' %}" class="btn btn-primary">Expense Report</a>
                     </div>
@@ -71,6 +72,7 @@
                             <h2>Your Expenses</h2>
                             <p>Your all expense is here</p>
                         </div>
+                       
                         <table class="tablemain">
                             <thead>
                                 <tr>
@@ -96,6 +98,11 @@
                             </tbody>
                         </table>
                     </div>
+                    {% else %}
+                    <div class="row card expense_report">
+                        <h1 class="no_expense">You don't have any expense</h1>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
