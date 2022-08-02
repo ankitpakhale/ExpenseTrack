@@ -49,11 +49,12 @@ def myreport(request):
 def update(request, id):
     id = int(id)
     expense_fetched = Expense.objects.get(id = id)
+    
     if request.method == 'POST':
+        category = request.POST['category']
         item = request.POST['item']
         amount = request.POST['amount']
-        category = request.POST['category']
-        date = request.POST['date']
+        date = request.POST['narration']
         
         expense_fetched.item = item
         expense_fetched.amount = amount

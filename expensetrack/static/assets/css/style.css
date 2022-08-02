@@ -1890,6 +1890,9 @@ section {
 #expense .your_expense {
   margin-left: 10px;
 }
+#expense .your_expense .fa-trash:hover, .fa-pen-to-square:hover{
+  color: #ff0000; 
+}
 
 #expense .expense_report {
   margin-left: 10px;

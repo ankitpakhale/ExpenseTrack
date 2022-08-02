@@ -91,7 +91,7 @@
                                     <td>{{ item.category }}</td>
                                     <td>{{ item.item }}</td>
                                     <td>{{ item.amount }}</td>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
+                                    <td><a href="{% url 'update' item.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
                                     <td><a href="{% url 'delete' item.id %}"><i class="fa-solid fa-trash"></i></a></td>
                                 </tr>
                                 {% endfor %}
