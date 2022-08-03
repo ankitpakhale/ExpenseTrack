@@ -35,7 +35,7 @@
                                 {% csrf_token %}
 
                                 <div class="dropdown show row mb-3">
-                                    <select class="btn btn-secondary dropdown-toggle" name="item_cat" id="cars"
+                                    <select value="{{category}}" class="btn btn-secondary dropdown-toggle" name="item_cat" id="cars"
                                         required>
                                         <option disabled selected value="">Item category</option>
                                         {% for i in add_category %}
@@ -44,15 +44,15 @@
                                     </select>
                                 </div>
                                 <div class="row mb-3">
-                                    <input name="item_name" placeholder="Item Name" type="text" class="form-control"
+                                    <input value="{{item}}" name="item_name" placeholder="Item Name" type="text" class="form-control"
                                         required>
                                 </div>
                                 <div class="row mb-3">
-                                    <input name="item_price" placeholder="Item Price" type="number" class="form-control"
+                                    <input value="{{amount}}" name="item_price" placeholder="Item Price" type="number" class="form-control"
                                         required>
                                 </div>
                                 <div class="row mb-3">
-                                    <input name="item_narr" placeholder="Narration" type="text" class="form-control">
+                                    <input value="{{narration}}" name="item_narr" placeholder="Narration" type="text" class="form-control">
                                 </div>
                                 <div class="row">
                                     <button type="submit" class="btn btn-primary">Add Expense</button>

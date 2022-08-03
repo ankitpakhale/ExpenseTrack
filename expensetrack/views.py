@@ -1,3 +1,4 @@
+from multiprocessing import context
 import re
 from django.shortcuts import render, redirect
 from .models import Expense
@@ -45,24 +46,7 @@ def myreport(request):
         return HttpResponse(pdf, content_type='application/pdf')
     else:
         return redirect('LOGIN')
-# -------------------------------------------------------------------------------
-def update(request, id):
-    id = int(id)
-    expense_fetched = Expense.objects.get(id = id)
-    
-    if request.method == 'POST':
-        category = request.POST['category']
-        item = request.POST['item']
-        amount = request.POST['amount']
-        date = request.POST['narration']
-        
-        expense_fetched.item = item
-        expense_fetched.amount = amount
-        expense_fetched.category = category
-        expense_fetched.date = date
-        expense_fetched.save()
-    return redirect(ALL_EXPENSE)
-# ----------------------------------------------------------------
+
 def index(request):
     msg =  ''
     if request.POST:
@@ -245,9 +229,37 @@ def ALL_EXPENSE(request):
         }
         return render(request, 'expense.html', context=context)
     return redirect('LOGIN')
+# -------------------------------------------------------------------------------
+def update(request, id):
+    if 'email' in request.session:
+        id = int(id)
+        email = SignUp.objects.get(email=request.session['email'])
+        add_category = Categories.objects.filter(owner = email)
+        expense_fetched = Expense.objects.get(id = id)
+        print("----------------------")
+        print(expense_fetched.category,"::",expense_fetched.item,"::",expense_fetched.amount,"::",expense_fetched.narration)
+        print("----------------------")
+        if request.method == 'POST':
+            expense_fetched.item = request.POST['item_item']
+            expense_fetched.amount = request.POST['item_price']
+            expense_fetched.category = request.POST['item_cat']
+            expense_fetched.narration = request.POST['item_narr']
+            expense_fetched.save()
+            return redirect(ALL_EXPENSE)
+        context = {
+            'item':expense_fetched.item,
+            'amount':expense_fetched.amount,
+            'category':expense_fetched.category,
+            'narration':expense_fetched.narration,
+            'add_category':add_category
+        }
+        return render(request, 'expense.html', context=context)
+    return redirect('LOGIN')
+# ----------------------------------------------------------------
 
-def delete(request, id):
-    id = int(id)
-    expense_fetched = Expense.objects.get(id = id)
-    expense_fetched.delete()
-    return redirect(ALL_EXPENSE)
+def delete(request,id):
+    if 'email' in request.session:
+        entry= get_object_or_404(Expense, pk=id)   
+        entry.delete() 
+        return(redirect(ALL_EXPENSE))
+    return redirect('LOGIN')
