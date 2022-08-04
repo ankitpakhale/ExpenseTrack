@@ -31,15 +31,19 @@
                                 <h2>Add Expense</h2>
                                 <p>Add your daily expense here</p>
                             </div>
-                            <form method="POST" action="{% url 'add_expense' %}">
+                            <form method="POST">
                                 {% csrf_token %}
 
                                 <div class="dropdown show row mb-3">
-                                    <select value="{{category}}" class="btn btn-secondary dropdown-toggle" name="item_cat" id="cars"
+                                    <select class="btn btn-secondary dropdown-toggle" name="item_cat" id="cars"
                                         required>
                                         <option disabled selected value="">Item category</option>
                                         {% for i in add_category %}
-                                        <option value="{{ i }}">{{ i }}</option>
+                                            {% if i == category %}
+                                                <option value="{{ i }}" selected>{{ i }}</option>
+                                                {% else %}
+                                                <option value="{{ i }}">{{ i }}</option>
+                                                {% endif %}
                                         {% endfor %}
                                     </select>
                                 </div>

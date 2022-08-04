@@ -11,7 +11,7 @@ from xhtml2pdf import pisa
 import plotly.graph_objects as go
 from io import BytesIO
 import plotly.express as px
-
+from django.shortcuts import get_list_or_404, get_object_or_404
     
 # -------------------------------------------------------------------------------
 def render_to_pdf(template_src, context_dict={}):
@@ -223,6 +223,20 @@ def ALL_EXPENSE(request):
         email = SignUp.objects.get(email=request.session['email'])
         all_expense = Expense.objects.filter(owner=email)
         add_category = Categories.objects.filter(owner = email)
+        if request.method == 'POST':           
+            expense_cat = request.POST['item_cat']
+            expense_name = request.POST['item_name']
+            expense_price = request.POST['item_price']
+            expense_narr = request.POST['item_narr']
+            expense_cat = Categories.objects.filter(owner = email).get(category=expense_cat) 
+            Expense.objects.create(
+                item = expense_name,
+                amount = expense_price, 
+                category = expense_cat,
+                owner = email,
+                narration = expense_narr
+            )
+            print("expense created successfully")
         context = {
             'add_category': add_category,
             'all_expense': all_expense,
@@ -236,14 +250,22 @@ def update(request, id):
         email = SignUp.objects.get(email=request.session['email'])
         add_category = Categories.objects.filter(owner = email)
         expense_fetched = Expense.objects.get(id = id)
-        print("----------------------")
-        print(expense_fetched.category,"::",expense_fetched.item,"::",expense_fetched.amount,"::",expense_fetched.narration)
-        print("----------------------")
+        # print("----------------------")
+        # print(expense_fetched.category,"::",expense_fetched.item,"::",expense_fetched.amount,"::",expense_fetched.narration)
+        # print("----------------------")
         if request.method == 'POST':
-            expense_fetched.item = request.POST['item_item']
-            expense_fetched.amount = request.POST['item_price']
-            expense_fetched.category = request.POST['item_cat']
-            expense_fetched.narration = request.POST['item_narr']
+            categories_expense_fetched = Categories.objects.get(category = request.POST.get('item_cat'))
+            expense_fetched.item = request.POST.get('item_name')
+            expense_fetched.amount = request.POST.get('item_price')
+            expense_fetched.category = categories_expense_fetched
+            expense_fetched.narration = request.POST.get('item_narr')
+
+            # print("----------------------")
+            # print(request.POST.get('item_name'))
+            # print(request.POST.get('item_price'))
+            # print(request.POST.get('item_cat'))
+            # print(request.POST.get('item_narr'))
+            # print("----------------------")
             expense_fetched.save()
             return redirect(ALL_EXPENSE)
         context = {

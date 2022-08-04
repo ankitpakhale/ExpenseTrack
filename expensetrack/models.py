@@ -18,7 +18,7 @@ class Categories(models.Model):
         return self.category
 
 class Expense(models.Model):
-    item = models.CharField(max_length = 50)
+    item = models.CharField(max_length=50, null=True, blank=True)
     amount = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
     narration = models.CharField(max_length=1000, null=True, blank=True)
