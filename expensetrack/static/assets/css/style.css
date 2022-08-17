@@ -1488,18 +1488,18 @@ section {
   color: #fff;
 }
 
-.contact .php-email-form {
+.contact .contact_form {
   width: 100%;
   background: #fff;
   padding: 20px;
   border-radius: 5px;
 }
 
-.contact .php-email-form .form-group {
+.contact .contact_form .form-group {
   padding-bottom: 8px;
 }
 
-.contact .php-email-form .error-message {
+.contact .contact_form .error-message {
   display: none;
   color: #fff;
   background: #ed3c0d;
@@ -1508,11 +1508,11 @@ section {
   font-weight: 600;
 }
 
-.contact .php-email-form .error-message br+br {
+.contact .contact_form .error-message br+br {
   margin-top: 25px;
 }
 
-.contact .php-email-form .sent-message {
+.contact .contact_form .sent-message {
   display: none;
   color: #fff;
   background: #18d26e;
@@ -1521,14 +1521,14 @@ section {
   font-weight: 600;
 }
 
-.contact .php-email-form .loading {
+.contact .contact_form .loading {
   display: none;
   background: #fff;
   text-align: center;
   padding: 15px;
 }
 
-.contact .php-email-form .loading:before {
+.contact .contact_form .loading:before {
   content: "";
   display: inline-block;
   border-radius: 50%;
@@ -1541,32 +1541,19 @@ section {
   animation: animate-loading 1s linear infinite;
 }
 
-.contact .php-email-form input,
-.contact .php-email-form textarea {
+.contact .contact_form input,
+.contact .contact_form textarea {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
 }
 
-.contact .php-email-form input {
+.contact .contact_form input {
   height: 44px;
 }
 
-.contact .php-email-form textarea {
+.contact .contact_form textarea {
   padding: 10px 12px;
-}
-
-.contact .php-email-form button[type=submit] {
-  background: #7cc576;
-  border: 0;
-  padding: 10px 24px;
-  color: #fff;
-  transition: 0.4s;
-  border-radius: 4px;
-}
-
-.contact .php-email-form button[type=submit]:hover {
-  background: #61b959;
 }
 
 @-webkit-keyframes animate-loading {
@@ -1587,6 +1574,107 @@ section {
   100% {
     transform: rotate(360deg);
   }
+}
+
+
+#subscribe .footer-top {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 80px 0;
+  background-color: #151515;
+}
+
+#subscribe .footer-top .footer-logo img {
+  height: 80px;
+}
+
+#subscribe .footer-top h3 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  padding: 30px 0 0 0;
+  margin-bottom: 0;
+}
+
+#subscribe .footer-top p {
+  font-size: 15;
+  color: #fff;
+  font-style: italic;
+  margin: 30px 0 0 0;
+  padding: 0;
+}
+
+#subscribe .footer-top .footer-newsletter {
+  text-align: center;
+  font-size: 15px;
+  margin-top: 30px;
+}
+
+#subscribe .footer-top .footer-newsletter form {
+  background: #fff;
+  padding: 6px 10px;
+  position: relative;
+  border-radius: 50px;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+#subscribe .footer-top .footer-newsletter form input[type=email] {
+  border: 0;
+  padding: 4px 8px;
+  width: calc(100% - 100px);
+}
+
+#subscribe .footer-top .footer-newsletter form input[type=email]:focus {
+  outline: none;
+}
+
+#subscribe .footer-top .footer-newsletter form input[type=submit] {
+  position: absolute;
+  top: 0;
+  right: -1px;
+  bottom: 0;
+  border: 0;
+  background: none;
+  font-size: 16px;
+  padding: 0 20px;
+  background: #7cc576;
+  color: #fff;
+  transition: 0.3s;
+  border-radius: 50px;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+#subscribe .footer-top .footer-newsletter form input[type=submit]:hover {
+  background: #5ab652;
+}
+
+#subscribe .footer-top .social-links {
+  margin-top: 30px;
+}
+
+#subscribe .footer-top .social-links a {
+  font-size: 18px;
+  display: inline-block;
+  background: #7cc576;
+  color: #fff;
+  line-height: 1;
+  padding: 8px 0;
+  margin-right: 4px;
+  border-radius: 50%;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  transition: 0.3s;
+}
+
+#subscribe .footer-top .social-links a:hover {
+  background: #5ab652;
+  color: #fff;
+  text-decoration: none;
 }
 
 /*--------------------------------------------------------------
@@ -1962,3 +2050,4 @@ table tr:nth-of-type(even):hover {
   text-align: center;
 }
 /* ------------------------------------------- */
+

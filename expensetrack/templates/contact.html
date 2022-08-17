@@ -41,7 +41,7 @@
 
         <div class="col-lg-8 mt-5 mt-lg-0">
 
-          <form method="POST" role="form" class="php-email-form" data-aos="fade-left">
+          <form method="POST" class="contact_form" data-aos="fade-left">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6 form-group">
@@ -54,22 +54,41 @@
             <div class="form-group mt-3">
               <textarea class="form-control" name="details" rows="5" placeholder="Message" required></textarea>
             </div>
-            <div class="my-3">
-              <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your message has been sent. Thank you!</div>
+            <div class="text-center">
+              <input class="btn btn-primary" type="submit" name="contact" value="Send Message">
             </div>
-            <div class="text-center"><button type="submit">Send Message</button></div>
           </form>
 
         </div>
-
       </div>
-
     </div>
   </section><!-- End Contact Section -->
 
+  <div id="subscribe">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <p>Subscribe to our website for upcoming updates</p>
+          </div>
+        </div>
+        <div class="row footer-newsletter justify-content-center">
+          <div class="col-lg-6">
+            <form method="POST">
+              {% csrf_token %}
+              <input type="email" name="email" placeholder="Enter your Email">
+              <input type="submit" name="subs" value="Subscribe">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main><!-- End #main -->
 
+{% if msg %}
+<script>alert('{{ msg }}')</script>
+{% endif %}
 <!-- ======= Footer ======= -->
 {% endblock %}

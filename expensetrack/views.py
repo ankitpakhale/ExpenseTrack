@@ -100,15 +100,24 @@ def elements(request):
 
 def contact(request):
     key = ''
+    print('00')
     if request.method == 'POST':
-        # if 'ContactForm' in request.POST:
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        details = request.POST.get('details')
-        db = Contact(name = name, email = email, details = details)
-        db.save()
-        key = "Your Message has been sent successfully"
-        
+        print('01')
+        if 'contact' in request.POST:
+            print('02')
+            name = request.POST.get('name')
+            email = request.POST.get('email')
+            details = request.POST.get('details')
+            print(name, email, details)
+            db = Contact(name = name, email = email, details = details)
+            db.save()
+            key = "Your Message has been sent successfully"
+        elif 'subs' in request.POST:
+            email = request.POST.get('email')
+            print(email)
+            Subscribe.objects.create(email=email)
+            key = 'You have successfully subscribed for our latest updates'
+        print(key)
     return render(request, 'contact.html', {'msg': key})
 
 def signup(self):
@@ -120,7 +129,6 @@ def signup(self):
         address = self.POST['address']
         password = self.POST['password']
         confirmPassword = self.POST['confirmPassword']
-        
         try:
             print('try')
             data=SignUp.objects.get(email=email)
@@ -250,22 +258,12 @@ def update(request, id):
         email = SignUp.objects.get(email=request.session['email'])
         add_category = Categories.objects.filter(owner = email)
         expense_fetched = Expense.objects.get(id = id)
-        # print("----------------------")
-        # print(expense_fetched.category,"::",expense_fetched.item,"::",expense_fetched.amount,"::",expense_fetched.narration)
-        # print("----------------------")
         if request.method == 'POST':
             categories_expense_fetched = Categories.objects.get(category = request.POST.get('item_cat'))
             expense_fetched.item = request.POST.get('item_name')
             expense_fetched.amount = request.POST.get('item_price')
             expense_fetched.category = categories_expense_fetched
             expense_fetched.narration = request.POST.get('item_narr')
-
-            # print("----------------------")
-            # print(request.POST.get('item_name'))
-            # print(request.POST.get('item_price'))
-            # print(request.POST.get('item_cat'))
-            # print(request.POST.get('item_narr'))
-            # print("----------------------")
             expense_fetched.save()
             return redirect(ALL_EXPENSE)
         context = {
