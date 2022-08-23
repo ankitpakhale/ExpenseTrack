@@ -1,3 +1,4 @@
+from cmath import e
 from multiprocessing import context
 import re
 from django.shortcuts import render, redirect
@@ -14,50 +15,44 @@ import plotly.express as px
 from django.shortcuts import get_list_or_404, get_object_or_404
     
 # -------------------------------------------------------------------------------
-def render_to_pdf(template_src, context_dict={}):
+def render_to_pdf(template_src, context_dict=None):
+    if context_dict is None:
+        context_dict = {}
     template = get_template(template_src)
-    html  = template.render(context_dict)
+    html = template.render(context_dict)
     result = BytesIO()
     pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
-    if not pdf.err:
-        return HttpResponse(result.getvalue(), content_type='application/pdf')
-    return None
+    return None if pdf.err else HttpResponse(result.getvalue(), content_type='application/pdf')
 # -------------------------------------------------------------------------------
 def myreport(request):
-    if 'email' in request.session:
-        email = SignUp.objects.get(email=request.session['email'])
-        expenses = Expense.objects.filter(owner = email)
-        total = 0
-        for i in expenses:
-            total += int(i.amount)
-        print(total)
-        data = {
-            'expenses': expenses,
-            'total': total
-            }
-        pdf = render_to_pdf('GeneratePdf.html', data)
-        cat_name = []
-        values = []
-        for i in expenses:
-            values.append(i.amount)
-            cat_name.append(str(i.category))
-        fig = go.Figure(data=[go.Pie(labels=cat_name, values=values, hole=.3)])
-        fig.show()
-        return HttpResponse(pdf, content_type='application/pdf')
-    else:
+    if 'email' not in request.session:
         return redirect('LOGIN')
+    email = SignUp.objects.get(email=request.session['email'])
+    print(email,'------------------------------------------------------')
+    expenses = Expense.objects.filter(owner=email)
+    total = sum(int(i.amount) for i in expenses)
+    print(total)
+    data = {'expenses': expenses, 'total': total}
+    pdf = render_to_pdf('GeneratePdf.html', data)
+    cat_name = []
+    values = []
+    for i in expenses:
+        values.append(i.amount)
+        cat_name.append(str(i.category))
+    fig = go.Figure(data=[go.Pie(labels=cat_name, values=values, hole=0.3)])
+    fig.show()
+    return HttpResponse(pdf, content_type='application/pdf')
 
 def index(request):
-    msg =  ''
+    msg = ''
     if request.POST:
         email = request.POST['email']
         try:
-            data = Subscribe.objects.get(email=email)
-            if data:
+            if data := Subscribe.objects.get(email=email):
                 msg = f"{email} is Already Subscribed for our updates"
                 print(msg)
                 return render(request, 'index.html', {'msg': msg})
-        except:
+        except Exception:
             sub = Subscribe(email=email)
             sub.save()
             msg = f"{email} have successfully Subscribed for our updates"
@@ -131,49 +126,37 @@ def signup(self):
         confirmPassword = self.POST['confirmPassword']
         try:
             print('try')
-            data=SignUp.objects.get(email=email)
-            if data:
+            if data := SignUp.objects.get(email=email):
                 msg = 'Email already taken'
-                return render(self , 'signup.html',{'msg':msg}) 
-        except:
+                return render(self, 'signup.html', {'msg': msg})
+        except Exception:
             if confirmPassword == password:
                 print('elif')
-                v = SignUp()
-                v.name = name
-                v.email = email
-                v.number = number
-                v.address = address
-                v.password = password
-                v.save()
+                SignUp.objects.create(
+                    name = name,
+                    email = email,
+                    number = number,
+                    address = address,
+                    password = password)
                 msg = f'{name} has Successfully Signed up'
-                return render(self , 'signup.html',{'msg':msg})
             else:
                 msg = 'Enter Same Password'
-                return render(self , 'signup.html',{'msg':msg})
-    return render(self,'signup.html')
+            return render(self, 'signup.html', {'msg': msg})
+    return render(self, 'signup.html')
 
 def login(self):
     if self.POST:
         em = self.POST.get('email')
         pass1 = self.POST.get('password')
         try:
-            print("Inside first try block")
-            check = SignUp.objects.get(email = em)
-            if check.password == pass1:
-                # print(check.Password)
-                self.session['email'] = check.email
-                return redirect('INDEX')
-            else:
-                msg = 'Invalid Password'
-                return render(self , 'login.html',{'msg':msg}) 
-                # return HttpResponse('Invalid Password')
-        except:
-            print("Inside first except block")
-            msg = 'Invalid Email ID'
-            return render(self , 'login.html',{'msg':msg}) 
-            # return HttpResponse('Invalid Email ID')
-
-    return render(self,'login.html')
+            check = SignUp.objects.get(email=em)
+            if check.password != pass1:
+                return render(self, 'login.html', {'msg': 'Invalid Password'})
+            self.session['email'] = check.email
+            return redirect('INDEX')
+        except Exception:
+            return render(self, 'login.html', {'msg': 'Invalid Email ID'})
+    return render(self, 'login.html')
 
 
 def userLogOut(request):
@@ -182,7 +165,7 @@ def userLogOut(request):
             del request.session['email']
             print('User logged out successfully')
             return redirect('LOGIN')
-    except:
+    except Exception:
         return redirect('LOGIN')
 
 def base(request):
@@ -194,92 +177,80 @@ def base(request):
 
 # ############################# New Work #################################
 def add_category(request):
-    if 'email' in request.session:
-        email = SignUp.objects.get(email=request.session['email'])
-        category_name = request.POST['category_name']
-        try:
-            data = Categories.objects.get(category = category_name, owner = email)
-            print("this category is already in database")
-        except:
-            Categories.objects.create(category = category_name, owner = email)
-            print(category_name," created successfully")
-        return redirect('ALL_EXPENSE')
-    return redirect('LOGIN')
+    if 'email' not in request.session:
+        return redirect('LOGIN')
+    email = SignUp.objects.get(email=request.session['email'])
+    category_name = request.POST['category_name']
+    try:
+        data = Categories.objects.get(category = category_name, owner = email)
+        print("this category is already in database")
+    except Exception:
+        Categories.objects.create(category = category_name, owner = email)
+        print(category_name," created successfully")
+    return redirect('ALL_EXPENSE')
 
 def add_expense(request):
-    if 'email' in request.session:
-        email = SignUp.objects.get(email=request.session['email'])
-        if request.method == 'POST':           
-            expense_cat = request.POST['item_cat']
-            expense_name = request.POST['item_name']
-            expense_price = request.POST['item_price']
-            expense_narr = request.POST['item_narr']
-            expense_cat = Categories.objects.filter(owner = email).get(category=expense_cat) 
-            Expense.objects.create(
-                item = expense_name,
-                amount = expense_price, 
-                category = expense_cat,
-                owner = email,
-                narration = expense_narr
-            )
-            print("expense created successfully")
-        return redirect('ALL_EXPENSE')
-    return redirect('LOGIN')
+    if 'email' not in request.session:
+        return redirect('LOGIN')
+    email = SignUp.objects.get(email=request.session['email'])
+    print(email, "this is the expense 00000000000000000000000000000000000000")
+    if request.method == 'POST':
+        expense_cat = request.POST['item_cat']
+        expense_name = request.POST['item_name']
+        expense_price = request.POST['item_price']
+        expense_narr = request.POST['item_narr']
+        expense_cat = Categories.objects.filter(owner=email).get(category=expense_cat)
+        Expense.objects.create(item=expense_name, amount=expense_price, category=expense_cat, owner=email, narration=expense_narr)
+
+        print("expense created successfully")
+    return redirect('ALL_EXPENSE')
 
 def ALL_EXPENSE(request):
-    if 'email' in request.session:
-        email = SignUp.objects.get(email=request.session['email'])
-        all_expense = Expense.objects.filter(owner=email)
-        add_category = Categories.objects.filter(owner = email)
-        if request.method == 'POST':           
-            expense_cat = request.POST['item_cat']
-            expense_name = request.POST['item_name']
-            expense_price = request.POST['item_price']
-            expense_narr = request.POST['item_narr']
-            expense_cat = Categories.objects.filter(owner = email).get(category=expense_cat) 
-            Expense.objects.create(
-                item = expense_name,
-                amount = expense_price, 
-                category = expense_cat,
-                owner = email,
-                narration = expense_narr
-            )
-            print("expense created successfully")
-        context = {
-            'add_category': add_category,
-            'all_expense': all_expense,
-        }
-        return render(request, 'expense.html', context=context)
-    return redirect('LOGIN')
+    if 'email' not in request.session:
+        return redirect('LOGIN')
+    email = SignUp.objects.get(email=request.session['email'])
+    all_expense = Expense.objects.filter(owner=email)
+    add_category = Categories.objects.filter(owner=email)
+    if request.method == 'POST':
+        expense_cat = request.POST['item_cat']
+        expense_name = request.POST['item_name']
+        expense_price = request.POST['item_price']
+        expense_narr = request.POST['item_narr']
+        expense_cat = Categories.objects.filter(owner=email).get(category=expense_cat)
+        Expense.objects.create(item=expense_name, amount=expense_price, category=expense_cat, owner=email, narration=expense_narr)
+
+        print("expense created successfully")
+    context = {'add_category': add_category, 'all_expense': all_expense}
+    return render(request, 'expense.html', context=context)
 # -------------------------------------------------------------------------------
 def update(request, id):
-    if 'email' in request.session:
-        id = int(id)
-        email = SignUp.objects.get(email=request.session['email'])
-        add_category = Categories.objects.filter(owner = email)
-        expense_fetched = Expense.objects.get(id = id)
-        if request.method == 'POST':
-            categories_expense_fetched = Categories.objects.get(category = request.POST.get('item_cat'))
-            expense_fetched.item = request.POST.get('item_name')
-            expense_fetched.amount = request.POST.get('item_price')
-            expense_fetched.category = categories_expense_fetched
-            expense_fetched.narration = request.POST.get('item_narr')
-            expense_fetched.save()
-            return redirect(ALL_EXPENSE)
-        context = {
-            'item':expense_fetched.item,
-            'amount':expense_fetched.amount,
-            'category':expense_fetched.category,
-            'narration':expense_fetched.narration,
-            'add_category':add_category
-        }
-        return render(request, 'expense.html', context=context)
-    return redirect('LOGIN')
+    if 'email' not in request.session:
+        return redirect('LOGIN')
+    id = int(id)
+    email = SignUp.objects.get(email=request.session['email'])
+    add_category = Categories.objects.filter(owner = email)
+    expense_fetched = Expense.objects.get(id = id)
+    if request.method == 'POST':
+        categories_expense_fetched = Categories.objects.get(category = request.POST.get('item_cat'))
+        expense_fetched.item = request.POST.get('item_name')
+        expense_fetched.amount = request.POST.get('item_price')
+        expense_fetched.category = categories_expense_fetched
+        expense_fetched.narration = request.POST.get('item_narr')
+        expense_fetched.save()
+        return redirect(ALL_EXPENSE)
+    context = {
+        'item':expense_fetched.item,
+        'amount':expense_fetched.amount,
+        'category':expense_fetched.category,
+        'narration':expense_fetched.narration,
+        'add_category':add_category
+    }
+    return render(request, 'expense.html', context=context)
 # ----------------------------------------------------------------
 
 def delete(request,id):
-    if 'email' in request.session:
-        entry= get_object_or_404(Expense, pk=id)   
-        entry.delete() 
-        return(redirect(ALL_EXPENSE))
-    return redirect('LOGIN')
+    if 'email' not in request.session:
+        return redirect('LOGIN')
+    entry= get_object_or_404(Expense, pk=id)   
+    entry.delete() 
+    return(redirect(ALL_EXPENSE))

@@ -26,9 +26,11 @@
   <link href=" {% static 'assets/vendor/boxicons/css/boxicons.min.css' %} " rel="stylesheet">
   <link href=" {% static 'assets/vendor/glightbox/css/glightbox.min.css' %} " rel="stylesheet">
   <link href=" {% static 'assets/vendor/swiper/swiper-bundle.min.css' %} " rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  
+
   <!-- Template Main CSS File -->
   <link href=" {% static 'assets/css/style.css' %} " rel="stylesheet">
 
@@ -46,12 +48,15 @@
             class="img-fluid"></a>
       </div>
 
-     
+
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto" href=" {% url 'INDEX' %} "><i class="fa-solid fa-house-user"></i>Home</a></li>
-          <li><a class="nav-link scrollto" href=" {% url 'ABOUT' %} "><i class="fa-solid fa-book-open-reader"></i>About</a></li>
-          <li><a class="nav-link scrollto" href=" {% url 'SERVICES' %} "><i class="fa-solid fa-bell-concierge"></i>Services</a></li>
+          <li><a class="nav-link scrollto" href=" {% url 'INDEX' %} "><i class="fa-solid fa-house-user"></i>Home</a>
+          </li>
+          <li><a class="nav-link scrollto" href=" {% url 'ABOUT' %} "><i
+                class="fa-solid fa-book-open-reader"></i>About</a></li>
+          <li><a class="nav-link scrollto" href=" {% url 'SERVICES' %} "><i
+                class="fa-solid fa-bell-concierge"></i>Services</a></li>
           <li><a class="nav-link scrollto" href=" {% url 'FAQ' %} "><i class="fa-solid fa-question"></i>Faq's</a></li>
 
           <li class="dropdown"><a href="#"><span>PTPT</span> <i class="bi bi-chevron-down"></i></a>
@@ -62,7 +67,8 @@
               <li><a href=" {% url 'TESTIMONIALS' %} "><i class="fa-solid fa-asterisk"></i>Testimonials</a></li>
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href=" {% url 'CONTACT' %} "><i class="fa-solid fa-address-book"></i>Contact</a></li>
+          <li><a class="nav-link scrollto" href=" {% url 'CONTACT' %} "><i
+                class="fa-solid fa-address-book"></i>Contact</a></li>
           <li><a href=" {% url 'SIGNUP' %} "><i class="fa-solid fa-user-plus"></i>Signup</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -90,12 +96,20 @@
             <form method="POST" role="form" class="php-email-form" data-aos="fade-left">
               {% csrf_token %}
               <div class="row">
+
                 <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                  <div class="input-group">
+                    <span class="input-group-text">Email</span>
+                    <input type="text" name="email" aria-label="Email" class="form-control">
+                  </div>
                 </div>
                 <div class="col-md-6 form-group">
-                  <input type="password" name="password" class="form-control" id="name" placeholder="Password" required>
+                  <div class="input-group">
+                    <span class="input-group-text">Password</span>
+                    <input type="password" name="password" aria-label="Password" class="form-control">
+                  </div>
                 </div>
+
               </div>
               <div class="text-center mt-3"><button class="btn btn-primary" type="submit">Login</button></div>
 
