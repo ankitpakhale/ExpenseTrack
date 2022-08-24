@@ -1177,16 +1177,10 @@ section {
     width: 50%;
   }
   .tablemain {
-    padding: 20px;
-    margin: 20px auto;
-    border-radius: 8px;
-    width: 100%;
-  
     display: block;
     overflow-x: auto;
     white-space: nowrap;
-  }
-  
+  }  
 }
 
 /*--------------------------------------------------------------
