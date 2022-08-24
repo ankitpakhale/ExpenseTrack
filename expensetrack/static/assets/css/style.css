@@ -1993,10 +1993,6 @@ section {
   margin: 20px auto;
   border-radius: 8px;
   width: 100%;
-  
-  height: 52vh; 
-  display: block; 
-  overflow-y: scroll;
 }
 
 table,

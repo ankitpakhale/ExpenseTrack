@@ -13,12 +13,12 @@
   <!-- Favicons -->
   <link href=" {% static 'assets/img/favicon.png' %} " rel="icon">
   <link href=" {% static 'assets/img/apple-touch-icon.png' %} " rel="apple-touch-icon">
-  
+
   <!-- Google Fonts -->
   <link
-  href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-  rel="stylesheet">
-  
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
   <!-- Vendor CSS Files -->
   <link href=" {% static 'assets/vendor/aos/aos.css' %} " rel="stylesheet">
   <link href=" {% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %} " rel="stylesheet">
@@ -29,13 +29,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <!-- Template Main CSS File -->
-  <link href=" {% static 'assets/css/style.css' %} " rel="stylesheet">
-    <!-- LINK for DataTable -->
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"/> -->
 
+  <!-- Template Main CSS File -->
+  <link href=" {% static 'assets/css/style.css' %} " rel="stylesheet">
+  
+  <!-- LINK for DataTable -->
+  <link href=" {% static 'assets/css/dataTable2.css' %} " rel="stylesheet">
 
 </head>
 
@@ -151,16 +150,16 @@
 
   <!-- Template Main JS File -->
   <script src=" {% static 'assets/js/main.js' %} "></script>
-    <!-- CDN for DataTable -->
-    <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script>  
-     $(document).ready(function () {
-      $('#expense_table_id').DataTable();
-     });
-    </script> -->
-  
+
+  <!-- CDN for DataTable -->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#example').DataTable();
+    });
+  </script>
 
 </body>
 
