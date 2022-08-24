@@ -1176,6 +1176,17 @@ section {
   .clients img {
     width: 50%;
   }
+  .tablemain {
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    width: 100%;
+  
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
 }
 
 /*--------------------------------------------------------------
@@ -1860,7 +1871,6 @@ section {
   padding-top: 5px;
 }
 
-/* ------------------------------------------- */
 /*This is modifying the btn-primary colors but you could create your own .btn-something class as well*/
 .btn-primary {
   background: #7cc576;
@@ -1879,47 +1889,6 @@ section {
   background: #61b959;
 }
 
-/* ------------------------------------------- */
-
-.blink_me {
-  /* animation: blinker 1s linear infinite; */
-}
-
-@keyframes blinker {
-  0% {
-    opacity: 0;
-  }
-
-  14.28% {
-    opacity: 0.25;
-  }
-
-  28.57% {
-    opacity: 0.50;
-  }
-
-  42.77% {
-    opacity: 0.75;
-  }
-
-  56.97% {
-    opacity: 1;
-  }
-
-  71.17% {
-    opacity: 0.75;
-  }
-
-  85.37% {
-    opacity: 0.50;
-  }
-
-  100% {
-    opacity: 0.25;
-  }
-}
-
-/* ------------------------------------------- */
 .all_expense h2 {
   font-size: 25px;
   font-weight: bold;
@@ -1940,6 +1909,15 @@ section {
   height: auto;
   background: #fff;
   padding: 2rem 2rem 3rem 2rem;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  margin: 0;
+}
+.expense_table_card {
+  margin: 0;
+  height: auto;
+  background: #fff;
+  padding: 2rem 0 3rem 0;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 }
@@ -1975,16 +1953,9 @@ section {
   text-align: center;
 }
 
-#expense .your_expense {
-  margin-left: 10px;
-}
-#expense .your_expense .fa-trash:hover, .fa-pen-to-square:hover{
-  color: #ff0000; 
-}
-
-#expense .expense_report {
-  margin-left: 10px;
-  margin-bottom: 25px;
+#expense .your_expense .fa-trash:hover,
+.fa-pen-to-square:hover {
+  color: #ff0000;
 }
 
 /* table css start */
@@ -2040,10 +2011,11 @@ table tr:nth-of-type(odd):hover {
 table tr:nth-of-type(even):hover {
   background-color: #b6c5b5;
 }
+
 /* table css end */
-.no_expense{
+.no_expense {
   color: #6ba766;
   text-align: center;
 }
-/* ------------------------------------------- */
 
+/* ------------------------------------------- */

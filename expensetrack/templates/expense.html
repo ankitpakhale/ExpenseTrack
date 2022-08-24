@@ -25,63 +25,62 @@
                         </form>
                     </div>
 
-                    <div class="row add_expense mb-4">
-                        <div class="card">
-                            <div class="all_expense">
-                                <h2>Add Expense</h2>
-                                <p>Add your daily expense here</p>
-                            </div>
-                            <form method="POST">
-                                {% csrf_token %}
+                    <div class="row add_expense card mb-4">
 
-                                <div class="dropdown show row mb-3">
-                                    <select class="btn btn-secondary dropdown-toggle" name="item_cat" id="cars"
-                                        required>
-                                        <option disabled selected value="">Item category</option>
-                                        {% for i in add_category %}
-                                        {% if i == category %}
-                                        <option value="{{ i }}" selected>{{ i }}</option>
-                                        {% else %}
-                                        <option value="{{ i }}">{{ i }}</option>
-                                        {% endif %}
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <div class="row mb-3">
-                                    <input value="{{item}}" name="item_name" placeholder="Item Name" type="text"
-                                        class="form-control" required>
-                                </div>
-                                <div class="row mb-3">
-                                    <input value="{{amount}}" name="item_price" placeholder="Item Price" type="number"
-                                        class="form-control" required>
-                                </div>
-                                <div class="row mb-3">
-                                    <input value="{{narration}}" name="item_narr" placeholder="Narration" type="text"
-                                        class="form-control">
-                                </div>
-                                <div class="row">
-                                    <button type="submit" class="btn btn-primary">Add Expense</button>
-                                </div>
-                            </form>
+                        <div class="all_expense">
+                            <h2>Add Expense</h2>
+                            <p>Add your daily expense here</p>
                         </div>
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            <div class="dropdown show row mb-3">
+                                <select class="btn btn-secondary dropdown-toggle" name="item_cat" id="cars" required>
+                                    <option disabled selected value="">Item category</option>
+                                    {% for i in add_category %}
+                                    {% if i == category %}
+                                    <option value="{{ i }}" selected>{{ i }}</option>
+                                    {% else %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="row mb-3">
+                                <input value="{{item}}" name="item_name" placeholder="Item Name" type="text"
+                                    class="form-control" required>
+                            </div>
+                            <div class="row mb-3">
+                                <input value="{{amount}}" name="item_price" placeholder="Item Price" type="number"
+                                    class="form-control" required>
+                            </div>
+                            <div class="row mb-3">
+                                <input value="{{narration}}" name="item_narr" placeholder="Narration" type="text"
+                                    class="form-control">
+                            </div>
+                            <div class="row">
+                                <button type="submit" class="btn btn-primary">Add Expense</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
 
                 <div class="col-lg-8">
-                    <div class="row card expense_report">
+                    <div class="row card expense_report mb-4">
                     </div>
                     {% if all_expense %}
-                    <div class="row card expense_report">
+                    <div class="row card expense_report  mb-4">
                         <a href="{% url 'myreport' %}" class="btn btn-primary">Expense Report</a>
                     </div>
-                    <div class="row your_expense card">
+                    <div class="row your_expense expense_table_card  mb-4">
                         <div class="all_expense">
                             <h2>Your Expenses</h2>
                             <p>Your all expense is here</p>
                         </div>
 
                         <table id="example" class="tablemain">
-                        <!-- <table id="example" class="table table-striped" style="width:100%"> -->
+                            <!-- <table id="example" class="table table-striped" style="width:100%"> -->
                             <thead>
                                 <tr>
                                     <th>Sr No</th>
@@ -107,7 +106,7 @@
                             </tbody>
                         </table>
                     </div>
-                 
+
                     {% endif %}
                 </div>
             </div>
