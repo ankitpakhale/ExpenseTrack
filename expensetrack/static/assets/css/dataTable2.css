@@ -81,8 +81,9 @@ table.dataTable thead>tr>td.sorting_desc:before,
 table.dataTable thead>tr>td.sorting_asc_disabled:before,
 table.dataTable thead>tr>td.sorting_desc_disabled:before {
     bottom: 50%;
-    content: "▴";
     color: #fff;
+    /* content: "▴"; */
+    content: "⇡";
 }
 
 table.dataTable thead>tr>th.sorting:after,
@@ -96,8 +97,9 @@ table.dataTable thead>tr>td.sorting_desc:after,
 table.dataTable thead>tr>td.sorting_asc_disabled:after,
 table.dataTable thead>tr>td.sorting_desc_disabled:after {
     top: 50%;
-    content: "▾";
     color: #fff;
+    /* content: "▾"; */
+    content: "⇣";
 }
 
 table.dataTable thead>tr>th.sorting_asc:before,
