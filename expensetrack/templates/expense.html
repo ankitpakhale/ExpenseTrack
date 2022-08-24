@@ -78,7 +78,8 @@
                             <p>Your all expense is here</p>
                         </div>
 
-                        <table class="tablemain">
+                        <!-- <table class="tablemain"> -->
+                        <table id="expense_table_id">
                             <thead>
                                 <tr>
                                     <th>Sr No</th>
@@ -103,6 +104,54 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                        <!-- ********************************************************* -->
+                        <!-- <table id="example" class="table table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011-04-25</td>
+                                    <td>$320,800</td>
+                                </tr>
+                                <tr>
+                                    <td>Garrett Winters</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>63</td>
+                                    <td>2011-07-25</td>
+                                    <td>$170,750</td>
+                                </tr>
+                                <tr>
+                                    <td>Ashton Cox</td>
+                                    <td>Junior Technical Author</td>
+                                    <td>San Francisco</td>
+                                    <td>66</td>
+                                    <td>2009-01-12</td>
+                                    <td>$86,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Cedric Kelly</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2012-03-29</td>
+                                    <td>$433,060</td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+                        <!-- ********************************************************* -->
                     </div>
                     {% else %}
                     <div class="row card expense_report">
@@ -119,20 +168,5 @@
 <script>alert('{{ msg }}')</script>
 {% endif %}
 
-<script>
-    const getCellValue = (tr, idx) => tr.children[ idx ].innerText || tr.children[ idx ].textContent;
-
-    const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
-        v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
-    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
-
-    // do the work...
-    document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
-        const table = th.closest('table');
-        Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
-            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
-            .forEach(tr => table.appendChild(tr));
-    })));
-</script>
 
 {% endblock %}
