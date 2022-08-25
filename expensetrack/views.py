@@ -219,24 +219,20 @@ def ALL_EXPENSE(request):
             expense_narr = request.POST['item_narr']
             expense_cat = Categories.objects.filter(owner=email).get(category=expense_cat)
             Expense.objects.create(item=expense_name, amount=expense_price, category=expense_cat, owner=email, narration=expense_narr)
-            msg = "expense created successfully"
+            msg = "Expense entry created successfully"
 
         elif request.POST.get('date_wise_entry'):
             start_date = request.POST['st_date']
             end_date = request.POST['en_date']
-            # start_date = (datetime.strptime(start_date, '%Y-%m-%d')).strftime('%Y-%m-%d')
             if start_date and end_date:
                 end_date = (datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)).strftime('%Y-%m-%d')
-                all_expense = Expense.objects.filter(date__range=[start_date, end_date])   
+                all_expense = all_expense.filter(date__range=[start_date,end_date])   
             elif start_date:
-                all_expense = Expense.objects.filter(date__range__gte=start_date)
+                all_expense = all_expense.filter(date__date__gte=start_date)
             elif end_date:
-                all_expense = Expense.objects.filter(date__range__lte=end_date)
-           
-            total = 0
-            for i in all_expense:
-                total += i.amount
-            
+                all_expense = all_expense.filter(date__date__lte=end_date)
+
+            total = sum(i.amount for i in all_expense)
             cat_name = []
             values = []
             for i in all_expense:
@@ -247,7 +243,7 @@ def ALL_EXPENSE(request):
 
             data = {'expenses': all_expense, 'total': total}
             pdf = render_to_pdf('GeneratePdf.html', data)
-            # return HttpResponse(pdf, content_type='application/pdf')
+                    # return HttpResponse(pdf, content_type='application/pdf')
 
     context = {'add_category': add_category, 'all_expense': all_expense, 'msg': msg}
     return render(request, 'expense.html', context=context)

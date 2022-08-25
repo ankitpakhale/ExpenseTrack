@@ -67,6 +67,7 @@
                 </div>
 
                 <div class="col-lg-8">
+                    {% if all_expense %}
                     <div class="card mb-4">
                         <div class="row mb-3">
                             <a href="{% url 'myreport' %}" class="btn btn-primary">Expense Report</a>
@@ -98,7 +99,7 @@
                             </form>
                         </div>
                     </div>
-                    {% if all_expense %}
+                    
                     <!-- <div class="row card mb-4">
                         <a href="{% url 'myreport' %}" class="btn btn-primary">Expense Report</a>
                     </div> -->
@@ -113,10 +114,10 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">Sr No</th>
+                                    <th class="text-center">Date & Time</th>
                                     <th class="text-center">Category</th>
                                     <th class="text-center">Item</th>
                                     <th class="text-center">Price</th>
-                                    <th class="text-center">Date & Time</th>
                                     <th class="text-center">Update</th>
                                     <th class="text-center">Delete</th>
                                 </tr>
@@ -125,10 +126,10 @@
                                 {% for item in all_expense %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
+                                    <td>{{ item.date }}</td>
                                     <td>{{ item.category }}</td>
                                     <td>{{ item.item }}</td>
                                     <td>{{ item.amount }}</td>
-                                    <td>{{ item.date }}</td>
                                     <td><a href="{% url 'update' item.id %}"><i
                                                 class="fa-solid fa-pen-to-square"></i></a></td>
                                     <td><a href="{% url 'delete' item.id %}"><i class="fa-solid fa-trash"></i></a></td>
