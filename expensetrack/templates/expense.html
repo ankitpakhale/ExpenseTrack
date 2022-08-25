@@ -59,7 +59,7 @@
                                     class="form-control">
                             </div>
                             <div class="row">
-                                <button type="submit" class="btn btn-primary">Add Expense</button>
+                                <input type="submit" name="add_entry" class="btn btn-primary" value="Add Expense">
                             </div>
                         </form>
 
@@ -68,33 +68,40 @@
 
                 <div class="col-lg-8">
                     <div class="card mb-4">
-                        <form method="POST">
-                            {% csrf_token %}
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <div class="input-group mt-3">
-                                        <span class="input-group-text">From Date</span>
-                                        <input type="date" name="fr_date" aria-label="From Date" class="form-control">
+                        <div class="row mb-3">
+                            <a href="{% url 'myreport' %}" class="btn btn-primary">Expense Report</a>
+                        </div>
+                        <div class="row">
+                            <!-- Fatching Data according to date -->
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class="input-group mt-3">
+                                            <span class="input-group-text">From Date</span>
+                                            <input type="date" name="st_date" aria-label="From Date"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group mt-3">
+                                            <span class="input-group-text">To Date</span>
+                                            <input type="date" name="en_date" aria-label="To Date" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="input-group mt-3">
-                                        <span class="input-group-text">To Date</span>
-                                        <input type="date" name="to_date" aria-label="To Date" class="form-control">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <input type="submit" name="date_wise_entry" value="Submit" class="btn btn-primary">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row"> 
-                                <div class="col text-center">
-                                    <input type="submit" value="Submit" class="btn btn-primary">
-                                </div>  
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                     {% if all_expense %}
-                    <div class="row card mb-4">
+                    <!-- <div class="row card mb-4">
                         <a href="{% url 'myreport' %}" class="btn btn-primary">Expense Report</a>
-                    </div>
+                    </div> -->
                     <div class="row your_expense expense_table_card  mb-4">
                         <div class="all_expense">
                             <h2>Your Expenses</h2>
@@ -109,6 +116,7 @@
                                     <th class="text-center">Category</th>
                                     <th class="text-center">Item</th>
                                     <th class="text-center">Price</th>
+                                    <th class="text-center">Date & Time</th>
                                     <th class="text-center">Update</th>
                                     <th class="text-center">Delete</th>
                                 </tr>
@@ -120,6 +128,7 @@
                                     <td>{{ item.category }}</td>
                                     <td>{{ item.item }}</td>
                                     <td>{{ item.amount }}</td>
+                                    <td>{{ item.date }}</td>
                                     <td><a href="{% url 'update' item.id %}"><i
                                                 class="fa-solid fa-pen-to-square"></i></a></td>
                                     <td><a href="{% url 'delete' item.id %}"><i class="fa-solid fa-trash"></i></a></td>

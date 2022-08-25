@@ -1,6 +1,5 @@
 from cmath import e
 from multiprocessing import context
-import re
 from django.shortcuts import render, redirect
 from .models import Expense
 from django.http import HttpResponse
@@ -13,7 +12,8 @@ import plotly.graph_objects as go
 from io import BytesIO
 import plotly.express as px
 from django.shortcuts import get_list_or_404, get_object_or_404
-    
+from datetime import datetime, timedelta
+
 # -------------------------------------------------------------------------------
 def render_to_pdf(template_src, context_dict=None):
     if context_dict is None:
@@ -28,7 +28,6 @@ def myreport(request):
     if 'email' not in request.session:
         return redirect('LOGIN')
     email = SignUp.objects.get(email=request.session['email'])
-    print(email,'------------------------------------------------------')
     expenses = Expense.objects.filter(owner=email)
     total = sum(int(i.amount) for i in expenses)
     print(total)
@@ -208,19 +207,49 @@ def add_expense(request):
 def ALL_EXPENSE(request):
     if 'email' not in request.session:
         return redirect('LOGIN')
+    msg = ''
     email = SignUp.objects.get(email=request.session['email'])
     all_expense = Expense.objects.filter(owner=email)
     add_category = Categories.objects.filter(owner=email)
     if request.method == 'POST':
-        expense_cat = request.POST['item_cat']
-        expense_name = request.POST['item_name']
-        expense_price = request.POST['item_price']
-        expense_narr = request.POST['item_narr']
-        expense_cat = Categories.objects.filter(owner=email).get(category=expense_cat)
-        Expense.objects.create(item=expense_name, amount=expense_price, category=expense_cat, owner=email, narration=expense_narr)
+        if request.POST.get('add_entry'):
+            expense_cat = request.POST['item_cat']
+            expense_name = request.POST['item_name']
+            expense_price = request.POST['item_price']
+            expense_narr = request.POST['item_narr']
+            expense_cat = Categories.objects.filter(owner=email).get(category=expense_cat)
+            Expense.objects.create(item=expense_name, amount=expense_price, category=expense_cat, owner=email, narration=expense_narr)
+            msg = "expense created successfully"
 
-        print("expense created successfully")
-    context = {'add_category': add_category, 'all_expense': all_expense}
+        elif request.POST.get('date_wise_entry'):
+            start_date = request.POST['st_date']
+            end_date = request.POST['en_date']
+            # start_date = (datetime.strptime(start_date, '%Y-%m-%d')).strftime('%Y-%m-%d')
+            if start_date and end_date:
+                end_date = (datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)).strftime('%Y-%m-%d')
+                all_expense = Expense.objects.filter(date__range=[start_date, end_date])   
+            elif start_date:
+                all_expense = Expense.objects.filter(date__range__gte=start_date)
+            elif end_date:
+                all_expense = Expense.objects.filter(date__range__lte=end_date)
+           
+            total = 0
+            for i in all_expense:
+                total += i.amount
+            
+            cat_name = []
+            values = []
+            for i in all_expense:
+                values.append(i.amount)
+                cat_name.append(str(i.category))
+            fig = go.Figure(data=[go.Pie(labels=cat_name, values=values, hole=0.3)])
+            # fig.show()
+
+            data = {'expenses': all_expense, 'total': total}
+            pdf = render_to_pdf('GeneratePdf.html', data)
+            # return HttpResponse(pdf, content_type='application/pdf')
+
+    context = {'add_category': add_category, 'all_expense': all_expense, 'msg': msg}
     return render(request, 'expense.html', context=context)
 # -------------------------------------------------------------------------------
 def update(request, id):
