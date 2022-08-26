@@ -6,7 +6,6 @@ urlpatterns = [
     path('delete/<int:id>', views.delete, name = 'delete'),
 # ----------------------------------------------------------------------
     path('elements/', views.elements, name = 'elements'),
-    path('base/', views.base, name = 'base'),
 # ----------------------------------------------------------------------
     path('myreport/', views.myreport, name = 'myreport'),
 # ----------------------------------------------------------------------

@@ -167,13 +167,6 @@ def userLogOut(request):
     except Exception:
         return redirect('LOGIN')
 
-def base(request):
-    if 'email' in request.session:
-        name = SignUp.objects.get(email=request.session['email'])
-        print(name)
-        return render(request, 'base.html', {'name':name})
-    return redirect('LOGIN')
-
 # ############################# New Work #################################
 def add_category(request):
     if 'email' not in request.session:

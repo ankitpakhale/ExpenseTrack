@@ -11,8 +11,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href=" {% static 'assets/img/favicon.png' %} " rel="icon">
-  <link href=" {% static 'assets/img/apple-touch-icon.png' %} " rel="apple-touch-icon">
+  <link href=" {% static 'assets/img/logo.png' %} " rel="icon">
+  <link href=" {% static 'assets/img/logo.png' %} " rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link
@@ -32,7 +32,7 @@
 
   <!-- Template Main CSS File -->
   <link href=" {% static 'assets/css/style.css' %} " rel="stylesheet">
-  
+
   <!-- LINK for DataTable -->
   <link href=" {% static 'assets/css/dataTable2.css' %} " rel="stylesheet">
 
@@ -60,7 +60,6 @@
           <li><a class="nav-link scrollto" href=" {% url 'ALL_EXPENSE' %} "><i class="fas fa-coins"></i>Expense</a>
           </li>
 
-
           <li><a class="nav-link scrollto" href=" {% url 'SERVICES' %} "><i
                 class="fa-solid fa-bell-concierge"></i>Services</a></li>
           <li><a class="nav-link scrollto" href=" {% url 'FAQ' %} "><i class="fa-solid fa-question"></i>Faq's</a></li>
@@ -78,17 +77,19 @@
 
           <li class="dropdown"><a href="#"><span>Authentication</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
+
+              {% if 'email' not in request.session %}
               <li><a href=" {% url 'SIGNUP' %} "><i class="fa-solid fa-user-plus"></i>Signup</a></li>
               <li><a href=" {% url 'LOGIN' %} "><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
+              {% else %}
               <li><a href=" {% url 'LOGOUT' %} "><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a></li>
+              {% endif %}
             </ul>
           </li>
-
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
       <!-- .navbar -->
-
     </div>
   </header><!-- End Header -->
   {% block content %}
@@ -105,33 +106,38 @@
           <div class="col-lg-6">
             <a href=" {% static '#header' %} " class="scrollto footer-logo"><img
                 src=" {% static 'assets/img/hero-logo.png' %} " alt=""></a>
-            <h3>Knight</h3>
-            <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi
-              placeat.</p>
+            <h3>Expense Tracker</h3>
+            <p>Track your expense using this Expense Tracker</p>
           </div>
         </div>
 
         <!-- <div class="row footer-newsletter justify-content-center">
           <div class="col-lg-6">
-            <form action="" method="post">
-              <input type="email" name="email" placeholder="Enter your Email"><input type="submit" value="Subscribe">
+            <form method="POST">
+              {% csrf_token %}
+              <input type="email" name="email" placeholder="Enter your Email">
+              <input type="submit" value="Subscribe">
             </form>
           </div>
         </div> -->
-
+        
         <div class="social-links">
-          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://in.linkedin.com/in/ankit-pakhale-096250166" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/ankitpakhale" class="twitter"><i class="bx bxl-github"></i></a>
+          <a href="https://in.pinterest.com/akp3067/" class="google-plus"><i class="bx bxl-pinterest"></i></a>
+          <a href="https://www.instagram.com/__the_ank__/" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="https://www.facebook.com/akp0745" class="facebook"><i class="bx bxl-facebook"></i></a>
         </div>
       </div>
     </div>
 
     <div class="container footer-bottom clearfix">
+      <div class="copyright"><strong><span>i3F Pvt Ltd </span></strong>is proud to present <strong><span>Expense Tracker</span></strong>
+      <div class="copyright">Thanks to <strong><span>PGI </span></strong>for sponsoring and supporting this product.
+      <!-- <div class="copyright"><strong><span>Expense Tracker </span></strong>made in collaboration with <strong><span><a href="http://ankitpakhale.netlify.com" target="_blank">PGI</a></span></strong> -->
+      </div>
       <div class="copyright">
-        &copy; Copyright <strong><span>Knight</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>Expense Tracker</span></strong>. All Rights Reserved
       </div>
     </div>
   </footer>
@@ -139,6 +145,11 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Alert msg from backend -->
+  {% if msg %}
+  <script>alert('{{ msg }}')</script>
+  {% endif %}
 
   <!-- Vendor JS Files -->
   <script src=" {% static 'assets/vendor/aos/aos.js' %} "></script>
