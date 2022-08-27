@@ -14,16 +14,6 @@ import plotly.express as px
 from django.shortcuts import get_list_or_404, get_object_or_404
 from datetime import datetime, timedelta
 
-# -------------------------------------------------------------------------------
-def render_to_pdf(template_src, context_dict=None):
-    if context_dict is None:
-        context_dict = {}
-    template = get_template(template_src)
-    html = template.render(context_dict)
-    result = BytesIO()
-    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
-    return None if pdf.err else HttpResponse(result.getvalue(), content_type='application/pdf')
-# -------------------------------------------------------------------------------
 def myreport(request):
     if 'email' not in request.session:
         return redirect('LOGIN')
@@ -193,9 +183,21 @@ def add_expense(request):
         expense_narr = request.POST['item_narr']
         expense_cat = Categories.objects.filter(owner=email).get(category=expense_cat)
         Expense.objects.create(item=expense_name, amount=expense_price, category=expense_cat, owner=email, narration=expense_narr)
-
         print("expense created successfully")
     return redirect('ALL_EXPENSE')
+
+
+# ---------------------------- PDF RENDERING ---------------------------------------------------
+def render_to_pdf(template_src, context_dict=None):
+    if context_dict is None:
+        context_dict = {}
+    template = get_template(template_src)
+    html = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    return None if pdf.err else HttpResponse(result.getvalue(), content_type='application/pdf')
+    # return HttpResponse(pdf, content_type='application/pdf')
+# -------------------------------------------------------------------------------
 
 def ALL_EXPENSE(request):
     if 'email' not in request.session:
@@ -225,18 +227,18 @@ def ALL_EXPENSE(request):
             elif end_date:
                 all_expense = all_expense.filter(date__date__lte=end_date)
 
-            total = sum(i.amount for i in all_expense)
+            # total = sum(i.amount for i in all_expense)
             cat_name = []
             values = []
             for i in all_expense:
                 values.append(i.amount)
                 cat_name.append(str(i.category))
             fig = go.Figure(data=[go.Pie(labels=cat_name, values=values, hole=0.3)])
-            # fig.show()
+            fig.show()
 
-            data = {'expenses': all_expense, 'total': total}
-            pdf = render_to_pdf('GeneratePdf.html', data)
-                    # return HttpResponse(pdf, content_type='application/pdf')
+            # data = {'expenses': all_expense, 'total': total}
+            # pdf = render_to_pdf('GeneratePdf.html', data)
+            # return HttpResponse(pdf, content_type='application/pdf')
 
     context = {'add_category': add_category, 'all_expense': all_expense, 'msg': msg}
     return render(request, 'expense.html', context=context)

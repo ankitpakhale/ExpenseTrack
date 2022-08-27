@@ -52,8 +52,13 @@
 
       <nav id="navbar" class="navbar">
         <ul>
+          {% if 'email' in request.session %}
+          <li><a class="nav-link scrollto" style="text-transform: lowercase;">Welcome {{ request.session.email }}</a></li>
+          {% endif %}
+
           <li><a class="nav-link scrollto" href=" {% url 'INDEX' %} "><i class="fa-solid fa-house-user"></i>Home</a>
           </li>
+          
           <li><a class="nav-link scrollto" href=" {% url 'ABOUT' %} "><i
                 class="fa-solid fa-book-open-reader"></i>About</a></li>
 
@@ -120,9 +125,10 @@
             </form>
           </div>
         </div> -->
-        
+
         <div class="social-links">
-          <a href="https://in.linkedin.com/in/ankit-pakhale-096250166" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://in.linkedin.com/in/ankit-pakhale-096250166" class="linkedin"><i
+              class="bx bxl-linkedin"></i></a>
           <a href="https://github.com/ankitpakhale" class="twitter"><i class="bx bxl-github"></i></a>
           <a href="https://in.pinterest.com/akp3067/" class="google-plus"><i class="bx bxl-pinterest"></i></a>
           <a href="https://www.instagram.com/__the_ank__/" class="instagram"><i class="bx bxl-instagram"></i></a>
@@ -132,14 +138,15 @@
     </div>
 
     <div class="container footer-bottom clearfix">
-      <div class="copyright"><strong><span>i3F Pvt Ltd </span></strong>is proud to present <strong><span>Expense Tracker</span></strong>
-      <div class="copyright">Thanks to <strong><span>PGI </span></strong>for sponsoring and supporting this product.
-      <!-- <div class="copyright"><strong><span>Expense Tracker </span></strong>made in collaboration with <strong><span><a href="http://ankitpakhale.netlify.com" target="_blank">PGI</a></span></strong> -->
+      <div class="copyright"><strong><span>i3F Pvt Ltd </span></strong>is proud to present <strong><span>Expense
+            Tracker</span></strong>
+        <div class="copyright">Thanks to <strong><span>PGI </span></strong>for sponsoring and supporting this product.
+          <!-- <div class="copyright"><strong><span>Expense Tracker </span></strong>made in collaboration with <strong><span><a href="http://ankitpakhale.netlify.com" target="_blank">PGI</a></span></strong> -->
+        </div>
+        <div class="copyright">
+          &copy; Copyright <strong><span>Expense Tracker</span></strong>. All Rights Reserved
+        </div>
       </div>
-      <div class="copyright">
-        &copy; Copyright <strong><span>Expense Tracker</span></strong>. All Rights Reserved
-      </div>
-    </div>
   </footer>
   <!-- End Footer -->
 
@@ -168,7 +175,17 @@
   <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
   <script>
     $(document).ready(function () {
-      $('#example').DataTable();
+      $('#example').DataTable({
+        
+        // To disable columns
+        "columnDefs":[{
+          'targets': [5, 6],
+          'orderable': false
+        }]
+        
+
+
+      });
     });
   </script>
 
