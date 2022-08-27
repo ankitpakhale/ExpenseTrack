@@ -154,9 +154,9 @@
       class="bi bi-arrow-up-short"></i></a>
 
   <!-- Alert msg from backend -->
-  {% if msg %}
+  <!-- {% if msg %}
   <script>alert('{{ msg }}')</script>
-  {% endif %}
+  {% endif %} -->
 
   <!-- Vendor JS Files -->
   <script src=" {% static 'assets/vendor/aos/aos.js' %} "></script>
@@ -183,7 +183,16 @@
           'orderable': false
         }]
         
-
+        // Download buttons
+        // dom: 'lBfrtip',
+        // buttons: [
+        //   {
+        //     extends: 'copy',
+        //     text: '<i class="fas fa-clone"></i>',
+        //     className: 'btn btn-primary',
+        //     titleAttr: 'Copy',
+        //   }
+        // ]
 
       });
     });

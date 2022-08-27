@@ -196,23 +196,24 @@ def render_to_pdf(template_src, context_dict=None):
     result = BytesIO()
     pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
     return None if pdf.err else HttpResponse(result.getvalue(), content_type='application/pdf')
-    # return HttpResponse(pdf, content_type='application/pdf')
+    # return pdf
 # -------------------------------------------------------------------------------
+from datetime import timedelta
 
 def ALL_EXPENSE(request):
     if 'email' not in request.session:
         return redirect('LOGIN')
     msg = ''
     email = SignUp.objects.get(email=request.session['email'])
-    all_expense = Expense.objects.filter(owner=email)
-    add_category = Categories.objects.filter(owner=email)
+    all_expense = Expense.objects.filter(owner__email=request.session['email']).filter(is_delete = False).order_by('-date')
+    add_category = Categories.objects.filter(owner__email=request.session['email'])
     if request.method == 'POST':
         if request.POST.get('add_entry'):
             expense_cat = request.POST['item_cat']
             expense_name = request.POST['item_name']
             expense_price = request.POST['item_price']
             expense_narr = request.POST['item_narr']
-            expense_cat = Categories.objects.filter(owner=email).get(category=expense_cat)
+            expense_cat = Categories.objects.filter(owner__email=request.session['email']).get(category=expense_cat)
             Expense.objects.create(item=expense_name, amount=expense_price, category=expense_cat, owner=email, narration=expense_narr)
             msg = "Expense entry created successfully"
 
@@ -221,13 +222,14 @@ def ALL_EXPENSE(request):
             end_date = request.POST['en_date']
             if start_date and end_date:
                 end_date = (datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)).strftime('%Y-%m-%d')
-                all_expense = all_expense.filter(date__range=[start_date,end_date])   
+                all_expense = all_expense.filter(date__range=[start_date,end_date], is_delete = False).order_by('-date')
+                # all_expense = all_expense.filter(date__range=[start_date,end_date+timedelta(days=1)], is_delete = False).order_by('-date')
             elif start_date:
-                all_expense = all_expense.filter(date__date__gte=start_date)
+                all_expense = all_expense.filter(date__date__gte=start_date, is_delete = False).order_by('-date')
             elif end_date:
-                all_expense = all_expense.filter(date__date__lte=end_date)
+                all_expense = all_expense.filter(date__date__lte=end_date, is_delete = False).order_by('-date')
 
-            # total = sum(i.amount for i in all_expense)
+            # Graph Rendering
             cat_name = []
             values = []
             for i in all_expense:
@@ -236,6 +238,8 @@ def ALL_EXPENSE(request):
             fig = go.Figure(data=[go.Pie(labels=cat_name, values=values, hole=0.3)])
             fig.show()
 
+            # PDF Rendering
+            # total = sum(i.amount for i in all_expense)
             # data = {'expenses': all_expense, 'total': total}
             # pdf = render_to_pdf('GeneratePdf.html', data)
             # return HttpResponse(pdf, content_type='application/pdf')
@@ -271,6 +275,5 @@ def update(request, id):
 def delete(request,id):
     if 'email' not in request.session:
         return redirect('LOGIN')
-    entry= get_object_or_404(Expense, pk=id)   
-    entry.delete() 
+    Expense.objects.filter(id=id).update(is_delete = True)
     return(redirect(ALL_EXPENSE))
