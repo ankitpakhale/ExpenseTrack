@@ -1,10 +1,4 @@
-1. For daily expance
-from date
-to date
-from and to date
-All date
-
-2. For monthly track (Only line Graph)
+For monthly track (Only line Graph)
 from month
 to month
 from and to month
