@@ -2014,3 +2014,13 @@ table tr:nth-of-type(even):hover {
 }
 
 /* ------------------------------------------- */
+
+#footer .footer-bottom strong{
+  transition: all 0.5s ease;
+  color: #fff;
+}
+
+#footer .footer-bottom strong:hover{
+  transition: all 0.5s ease;
+  color: #5ab652;
+}
