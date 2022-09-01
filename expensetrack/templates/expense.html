@@ -16,6 +16,10 @@
                         <form method="POST" action="{% url 'add_category' %}">
                             {% csrf_token %}
                             <div class="row mb-3">
+                                <!-- <div class="input-group mt-3">
+                                    <span class="input-group-text">Category Name</span>
+                                    <input type="text" name="category_name" aria-label="Email" class="form-control">
+                                </div> -->
                                 <input placeholder="Category Name" name="category_name" type="text" class="form-control"
                                     required>
                             </div>
@@ -97,13 +101,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col text-center">
-                                        <input type="submit" name="date_wise_entry" value="Submit" class="btn btn-primary">
+                                        <input type="submit" name="date_wise_entry" value="Submit"
+                                            class="btn btn-primary">
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    
+
                     <!-- <div class="row card mb-4">
                         <a href="{% url 'myreport' %}" class="btn btn-primary">Expense Report</a>
                     </div> -->
