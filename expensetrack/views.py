@@ -180,9 +180,10 @@ def add_expense(request):
         expense_cat = request.POST['item_cat']
         expense_name = request.POST['item_name']
         expense_price = request.POST['item_price']
+        expense_date = request.POST['item_date']
         expense_narr = request.POST['item_narr']
         expense_cat = Categories.objects.filter(owner=email).get(category=expense_cat)
-        Expense.objects.create(item=expense_name, amount=expense_price, category=expense_cat, owner=email, narration=expense_narr)
+        Expense.objects.create(item=expense_name, amount=expense_price, date=expense_date, category=expense_cat, owner=email, narration=expense_narr)
         print("expense created successfully")
     return redirect('ALL_EXPENSE')
 
@@ -205,16 +206,17 @@ def ALL_EXPENSE(request):
         return redirect('LOGIN')
     msg = ''
     email = SignUp.objects.get(email=request.session['email'])
-    all_expense = Expense.objects.filter(owner__email=request.session['email']).filter(is_delete = False).order_by('-date')
+    all_expense = Expense.objects.filter(owner__email=request.session['email']).filter(is_delete = False).order_by('-entry_date')
     add_category = Categories.objects.filter(owner__email=request.session['email'])
     if request.method == 'POST':
         if request.POST.get('add_entry'):
             expense_cat = request.POST['item_cat']
             expense_name = request.POST['item_name']
             expense_price = request.POST['item_price']
+            expense_date = request.POST['item_date']
             expense_narr = request.POST['item_narr']
             expense_cat = Categories.objects.filter(owner__email=request.session['email']).get(category=expense_cat)
-            Expense.objects.create(item=expense_name, amount=expense_price, category=expense_cat, owner=email, narration=expense_narr)
+            Expense.objects.create(item=expense_name, amount=expense_price, date=expense_date, category=expense_cat, owner=email, narration=expense_narr)
             msg = "Expense entry created successfully"
 
         elif request.POST.get('date_wise_entry'):
@@ -222,12 +224,12 @@ def ALL_EXPENSE(request):
             end_date = request.POST['en_date']
             if start_date and end_date:
                 end_date = (datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)).strftime('%Y-%m-%d')
-                all_expense = all_expense.filter(date__range=[start_date,end_date], is_delete = False).order_by('-date')
-                # all_expense = all_expense.filter(date__range=[start_date,end_date+timedelta(days=1)], is_delete = False).order_by('-date')
+                all_expense = all_expense.filter(date__range=[start_date,end_date], is_delete = False).order_by('-entry_date')
+                # all_expense = all_expense.filter(date__range=[start_date,end_date+timedelta(days=1)], is_delete = False).order_by('-entry_date')
             elif start_date:
-                all_expense = all_expense.filter(date__date__gte=start_date, is_delete = False).order_by('-date')
+                all_expense = all_expense.filter(date__date__gte=start_date, is_delete = False).order_by('-entry_date')
             elif end_date:
-                all_expense = all_expense.filter(date__date__lte=end_date, is_delete = False).order_by('-date')
+                all_expense = all_expense.filter(date__date__lte=end_date, is_delete = False).order_by('-entry_date')
 
             # Graph Rendering
             cat_name = []
@@ -258,6 +260,7 @@ def update(request, id):
         categories_expense_fetched = Categories.objects.get(category = request.POST.get('item_cat'))
         expense_fetched.item = request.POST.get('item_name')
         expense_fetched.amount = request.POST.get('item_price')
+        expense_fetched.date = request.POST.get('item_date')
         expense_fetched.category = categories_expense_fetched
         expense_fetched.narration = request.POST.get('item_narr')
         expense_fetched.save()
@@ -266,6 +269,7 @@ def update(request, id):
         'item':expense_fetched.item,
         'amount':expense_fetched.amount,
         'category':expense_fetched.category,
+        'date':expense_fetched.date,
         'narration':expense_fetched.narration,
         'add_category':add_category
     }

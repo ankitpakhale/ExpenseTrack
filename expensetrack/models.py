@@ -20,12 +20,12 @@ class Categories(models.Model):
 class Expense(models.Model):
     item = models.CharField(max_length=50, null=True, blank=True)
     amount = models.IntegerField()
-    date = models.DateTimeField(auto_now_add=True)
+    entry_date = models.DateTimeField(auto_now_add=True, editable=True)
+    date = models.DateField()
     narration = models.CharField(max_length=1000, null=True, blank=True)
     category = models.ForeignKey(Categories, on_delete=models.CASCADE, blank=True, null=True)
     owner = models.ForeignKey(SignUp, on_delete=models.CASCADE, blank=True, null=True)
     is_delete = models.BooleanField(default=False)
-    
     def __str__(self):
         return self.item
 
