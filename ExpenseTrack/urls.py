@@ -18,11 +18,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-admin.site.site_title = 'Expense Track'
-admin.site.site_header = 'Expense Track'
-admin.site.index_title  =  'Expense Track'
+admin.site.site_title = 'Expense Tracker'
+admin.site.site_header = 'Expense Tracker'
+admin.site.index_title  =  'Expense Tracker'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('finantial_app.urls'))
+    path('', include('finance.urls'))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

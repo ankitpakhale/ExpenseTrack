@@ -59,24 +59,24 @@
           <li><a class="nav-link scrollto" href=" {% url 'INDEX' %} "><i class="fa-solid fa-house-user"></i>Home</a>
           </li>
           
-          <li><a class="nav-link scrollto" href=" {% url 'ABOUT' %} "><i
-                class="fa-solid fa-book-open-reader"></i>About</a></li>
+          {% comment %} <li><a class="nav-link scrollto" href=" {% url 'ABOUT' %} "><i
+                class="fa-solid fa-book-open-reader"></i>About</a></li> {% endcomment %}
 
-          <li><a class="nav-link scrollto" href=" {% url 'ALL_EXPENSE' %} "><i class="fas fa-coins"></i>Expense</a>
+          <li><a class="nav-link scrollto" href=" {% url 'all_expense' %} "><i class="fas fa-coins"></i>Expense</a>
           </li>
 
-          <li><a class="nav-link scrollto" href=" {% url 'SERVICES' %} "><i
-                class="fa-solid fa-bell-concierge"></i>Services</a></li>
+          {% comment %} <li><a class="nav-link scrollto" href=" {% url 'SERVICES' %} "><i
+                class="fa-solid fa-bell-concierge"></i>Services</a></li> {% endcomment %}
           <li><a class="nav-link scrollto" href=" {% url 'FAQ' %} "><i class="fa-solid fa-question"></i>Faq's</a></li>
 
-          <li class="dropdown"><a href="#"><span>PTPT</span> <i class="bi bi-chevron-down"></i></a>
+          {% comment %} <li class="dropdown"><a href="#"><span>PTPT</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href=" {% url 'PORTFOLIO' %} "><i class="fa-solid fa-hand-holding-droplet"></i>Portfolio</a></li>
               <li><a href=" {% url 'TEAM' %} "><i class="fa-solid fa-people-group"></i>Team</a></li>
               <li><a href=" {% url 'PRICING' %} "><i class="fa-solid fa-money-bill-trend-up"></i>Pricing</a></li>
               <li><a href=" {% url 'TESTIMONIALS' %} "><i class="fa-solid fa-asterisk"></i>Testimonials</a></li>
             </ul>
-          </li>
+          </li> {% endcomment %}
 
           <li><a class="nav-link scrollto" href=" {% url 'CONTACT' %} "><i
                 class="fa-solid fa-address-book"></i>Contact</a>

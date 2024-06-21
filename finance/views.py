@@ -19,13 +19,12 @@ def render_to_pdf(template_src, context_dict=None):
     pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
     return None if pdf.err else HttpResponse(result.getvalue(), content_type='application/pdf')
 
-def myreport(request):
+def generate_report(request):
     if 'email' not in request.session:
         return redirect('LOGIN')
     email = SignUp.objects.get(email=request.session['email'])
     expenses = Expense.objects.filter(owner=email)
     total = sum(int(i.amount) for i in expenses)
-    print(total)
     data = {'expenses': expenses, 'total': total}
     pdf = render_to_pdf('GeneratePdf.html', data)
     cat_name = []
@@ -58,32 +57,32 @@ def index(request):
 def innerpage(request):
     return render(request, 'inner-page.html')
 
-def portfolio(request):
-    return render(request, 'portfolio.html')
+# def portfolio(request):
+#     return render(request, 'portfolio.html')
 
-def portfoliodetails(request):
-    return render(request, 'portfolio-details.html')
+# def portfoliodetails(request):
+#     return render(request, 'portfolio-details.html')
 
-def pricing(request):
-    return render(request, 'pricing.html')
+# def pricing(request):
+#     return render(request, 'pricing.html')
 
-def services(request):
-    return render(request, 'services.html')
+# def services(request):
+#     return render(request, 'services.html')
 
 def faq(request):
     return render(request, 'faq.html')
 
-def team(request):
-    return render(request, 'team.html')
+# def team(request):
+#     return render(request, 'team.html')
 
-def testimonials(request):
-    return render(request, 'testimonials.html')
+# def testimonials(request):
+#     return render(request, 'testimonials.html')
 
-def about(request):
-    return render(request, 'about.html')
+# def about(request):
+#     return render(request, 'about.html')
 
-def elements(request):
-    return render(request, 'elements.html')
+# def elements(request):
+#     return render(request, 'elements.html')
 
 def contact(request):
     key = ''
@@ -117,13 +116,11 @@ def signup(self):
         password = self.POST['password']
         confirmPassword = self.POST['confirmPassword']
         try:
-            print('try')
-            if data := SignUp.objects.get(email=email):
+            if SignUp.objects.get(email=email):
                 msg = 'Email already taken'
                 return render(self, 'signup.html', {'msg': msg})
         except Exception:
             if confirmPassword == password:
-                print('elif')
                 SignUp.objects.create(
                     name = name,
                     email = email,
@@ -150,7 +147,7 @@ def login(self):
             return render(self, 'login.html', {'msg': 'Invalid Email ID'})
     return render(self, 'login.html')
 
-def userLogOut(request):
+def user_log_out(request):
     try:
         if request.session['email']:
             del request.session['email']
@@ -168,11 +165,12 @@ def add_category(request):
         data = Categories.objects.get(category = category_name, owner = email)
     except Exception:
         Categories.objects.create(category = category_name, owner = email)
-    return redirect('ALL_EXPENSE')
+    return redirect('all_expense')
 
-def ALL_EXPENSE(request):
+def all_expense(request):
     if 'email' not in request.session:
         return redirect('LOGIN')
+
     msg = ''
     email = SignUp.objects.get(email=request.session['email'])
     all_expense = Expense.objects.filter(owner__email=request.session['email']).filter(is_delete = False).order_by('-entry_date')
@@ -232,7 +230,7 @@ def update(request, id):
         expense_fetched.category = categories_expense_fetched
         expense_fetched.narration = request.POST.get('item_narr')
         expense_fetched.save()
-        return redirect(ALL_EXPENSE)
+        return redirect(all_expense)
     context = {
         'item':expense_fetched.item,
         'amount':expense_fetched.amount,
@@ -247,4 +245,4 @@ def delete(request,id):
     if 'email' not in request.session:
         return redirect('LOGIN')
     Expense.objects.filter(id=id).update(is_delete = True)
-    return(redirect(ALL_EXPENSE))
+    return(redirect(all_expense))
