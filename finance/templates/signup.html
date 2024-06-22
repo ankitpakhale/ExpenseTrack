@@ -93,7 +93,10 @@
   </main><!-- End #main -->
 
   {% if msg %}
-  <script>alert('{{ msg }}')</script>
+  <script>
+    alert('{{ msg }}')
+    window.location.href = '/login';
+  </script>
   {% endif %}
     
     <!-- ======= Footer ======= -->

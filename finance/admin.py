@@ -10,7 +10,7 @@ class ExpenseAdmin(admin.ModelAdmin):
     list_filter = ('date', 'category')
     list_per_page = 10
     def click_me(self, obj):
-        return format_html(f'<a href="/admin/finantial_app/expense/{obj.id}/change/" class="default">View</a>')
+        return format_html(f'<a href="/admin/finance/expense/{obj.id}/change/" class="default">View</a>')
 admin.site.register(Expense, ExpenseAdmin)
 admin.site.register(Categories)
 admin.site.register(SignUp)
